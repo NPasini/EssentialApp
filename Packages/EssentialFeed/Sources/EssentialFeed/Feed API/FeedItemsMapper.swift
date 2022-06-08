@@ -32,7 +32,7 @@ enum FeedItemsMapper {
 
     static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteFeedLoader.Result {
         guard response.statusCode == OK_200, let root = try? JSONDecoder().decode(Root.self, from: data) else {
-            return .failure(.invalidData)
+            return .failure(APIError.invalidData)
         }
 
         return .success(root.feed)
