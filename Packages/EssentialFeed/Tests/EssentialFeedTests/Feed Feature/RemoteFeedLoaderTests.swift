@@ -53,7 +53,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .failure(.invalidData), when: {
-                let json = makeItemJson([])
+                let json = makeItemsJson([])
                 client.complete(withStatusCode: code, data: json, at: index)
             })
         }
@@ -72,7 +72,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         expect(sut, toCompleteWith: .success([]), when: {
-            let emptyListJson = Data(makeItemJson([]))
+            let emptyListJson = Data(makeItemsJson([]))
             client.complete(withStatusCode: 200, data: emptyListJson)
         })
     }
@@ -91,11 +91,25 @@ class RemoteFeedLoaderTests: XCTestCase {
         )
 
         let items = [item1.model, item2.model]
-        let json = makeItemJson([item1.json, item2.json])
+        let json = makeItemsJson([item1.json, item2.json])
 
         expect(sut, toCompleteWith: .success(items), when: {
             client.complete(withStatusCode: 200, data: json)
         })
+    }
+
+    func test_load_doesNotDeliverResultAfterSUTHasBeenDeallocated() {
+        let client = HTTPClientSpy()
+        let url = URL(string: "https://a-given-url.com")!
+        var sut: RemoteFeedLoader? = RemoteFeedLoader(url: url, client: client)
+
+        var capturedResults = [RemoteFeedLoader.Result]()
+        sut?.load { capturedResults.append($0) }
+
+        sut = nil
+        client.complete(withStatusCode: 200, data: makeItemsJson([]))
+
+        XCTAssertTrue(capturedResults.isEmpty)
     }
 
     // MARK: - Helpers
@@ -129,7 +143,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         return (model, json)
     }
 
-    private func makeItemJson(_ items: [[String: Any]]) -> Data {
+    private func makeItemsJson(_ items: [[String: Any]]) -> Data {
         let json = ["items": items]
         return try! JSONSerialization.data(withJSONObject: json)
     }
