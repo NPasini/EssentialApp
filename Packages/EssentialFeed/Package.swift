@@ -21,11 +21,14 @@ let package = Package(
         .target(
             name: "EssentialFeed",
             dependencies: []),
+        .target(
+            name: "Utilities",
+            dependencies: []),
         .testTarget(
             name: "EssentialFeedTests",
-            dependencies: ["EssentialFeed"]),
+            dependencies: ["EssentialFeed", "Utilities"]),
         .testTarget(
             name: "EssentialFeedAPIEndToEndTests",
-            dependencies: ["EssentialFeed"]),
+            dependencies: ["EssentialFeed", "Utilities"]),
     ]
 )
