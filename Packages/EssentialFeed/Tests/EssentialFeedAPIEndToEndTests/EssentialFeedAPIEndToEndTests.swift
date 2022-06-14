@@ -11,6 +11,19 @@ import EssentialFeed
 
 class EssentialFeedAPIEndToEndTests: XCTestCase {
 
+    func demo() {
+        let cache = URLCache(memoryCapacity: 10 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024, diskPath: nil)
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = cache
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        // Another option is to change the global instance of the cache (in the app did finish launching)
+        // URLCache.shared = cache
+        let session = URLSession(configuration: configuration)
+
+        let url = URL(string: "http://any-url.com")!
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 30)
+    }
+
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
         case let .success(items)?:
