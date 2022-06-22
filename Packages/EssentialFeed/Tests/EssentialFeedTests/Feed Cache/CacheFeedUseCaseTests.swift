@@ -8,7 +8,7 @@
 import XCTest
 import EssentialFeed
 
-class LoaclFeedLoader {
+class LocalFeedLoader {
 
     private let store: FeedStore
 
@@ -32,16 +32,14 @@ class FeedStore {
 class CacheFeedUseCaseTests: XCTestCase {
 
     func test_init_doesNotDeleteCacheUponCreation() {
-        let store = FeedStore()
-        _ = LoaclFeedLoader(store: store)
+        let (_, store) = makeSUT()
 
         XCTAssertEqual(store.deleteCachedFeedCallCount, 0)
     }
 
     func test_save_requestsCacheDeletion() {
-        let store = FeedStore()
-        let sut = LoaclFeedLoader(store: store)
         let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
 
         sut.save(items)
 
@@ -49,6 +47,14 @@ class CacheFeedUseCaseTests: XCTestCase {
     }
 
     // MARK: - Helpers
+
+    private func makeSUT() -> (sut: LocalFeedLoader, store: FeedStore) {
+        let store = FeedStore()
+        let sut = LocalFeedLoader(store: store)
+        trackForMemoryLeaks(store)
+        trackForMemoryLeaks(sut)
+        return (sut, store)
+    }
 
     private func uniqueItem() -> FeedItem {
         FeedItem(id: UUID(), imageURL: anyURL(), location: "any", description: "any")
