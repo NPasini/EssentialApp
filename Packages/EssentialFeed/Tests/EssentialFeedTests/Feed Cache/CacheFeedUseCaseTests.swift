@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Utilities
 import EssentialFeed
 
 class CacheFeedUseCaseTests: XCTestCase {
@@ -123,23 +124,5 @@ class CacheFeedUseCaseTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
 
         XCTAssertEqual(receivedError as? NSError, expectedError, file: file, line: line)
-    }
-
-    private func uniqueImage() -> FeedImage {
-        FeedImage(id: UUID(), url: anyURL(), location: "any", description: "any")
-    }
-
-    private func uniqueImageFeed() -> (models: [FeedImage], locals: [LocalFeedImage]) {
-        let models = [uniqueImage(), uniqueImage()]
-        let locals = models.map { LocalFeedImage(id: $0.id, url: $0.url, location: $0.location, description: $0.description) }
-        return (models, locals)
-    }
-
-    private func anyURL() -> URL {
-        URL(string: "https://any-url.com")!
-    }
-
-    private func anyNSError() -> NSError {
-        NSError(domain: "test", code: 0)
     }
 }

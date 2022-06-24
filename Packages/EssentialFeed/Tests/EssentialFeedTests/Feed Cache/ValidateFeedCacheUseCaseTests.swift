@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Utilities
 import EssentialFeed
 
 class ValidateFeedCacheUseCaseTests: XCTestCase {
@@ -54,35 +55,5 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
-    }
-
-    private func anyNSError() -> NSError {
-        NSError(domain: "test", code: 0)
-    }
-
-    private func uniqueImage() -> FeedImage {
-        FeedImage(id: UUID(), url: anyURL(), location: "any", description: "any")
-    }
-
-    private func uniqueImageFeed() -> (models: [FeedImage], locals: [LocalFeedImage]) {
-        let models = [uniqueImage(), uniqueImage()]
-        let locals = models.map { LocalFeedImage(id: $0.id, url: $0.url, location: $0.location, description: $0.description) }
-        return (models, locals)
-    }
-
-    private func anyURL() -> URL {
-        URL(string: "https://any-url.com")!
-    }
-
-}
-
-private extension Date {
-
-    func adding(days: Int) -> Date {
-        Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
-    }
-
-    func adding(seconds: TimeInterval) -> Date {
-        self + seconds
     }
 }

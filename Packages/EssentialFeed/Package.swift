@@ -23,7 +23,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "Utilities",
-            dependencies: []),
+            dependencies: ["EssentialFeed"]),
         .testTarget(
             name: "EssentialFeedTests",
             dependencies: ["EssentialFeed", "Utilities"]),
