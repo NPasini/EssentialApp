@@ -8,7 +8,7 @@
 import Foundation
 
 // DTO
-public struct LocalFeedImage: Equatable {
+public struct LocalFeedImage: Equatable, Codable {
     public let id: UUID
     public let url: URL
     public let location: String?
