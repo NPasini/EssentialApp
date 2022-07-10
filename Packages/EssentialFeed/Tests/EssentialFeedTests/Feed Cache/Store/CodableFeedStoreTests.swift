@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import Utilities
+import TestUtilities
 import EssentialFeed
 
 class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {

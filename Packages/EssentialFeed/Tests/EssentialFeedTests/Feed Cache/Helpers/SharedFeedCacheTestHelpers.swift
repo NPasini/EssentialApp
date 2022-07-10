@@ -5,8 +5,8 @@
 //  Created by Nicolò Pasini on 24/06/22.
 //
 
-import Utilities
 import Foundation
+import TestUtilities
 import EssentialFeed
 
 func uniqueImage() -> FeedImage {
