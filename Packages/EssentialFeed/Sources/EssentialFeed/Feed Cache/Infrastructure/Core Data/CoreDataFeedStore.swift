@@ -5,10 +5,16 @@
 //  Created by Nicolò Pasini on 08/07/22.
 //
 
+import CoreData
 import Foundation
 
 public final class CoreDataFeedStore: FeedStore {
-    public init() {}
+
+    private let container: NSPersistentContainer
+
+    public init(bundle: Bundle = .main) throws {
+        container = try NSPersistentContainer.load(modelName: "FeedStore", in: bundle)
+    }
 
     public func retrieve(completion: @escaping RetrievalCompletion) {
         completion(.empty)
