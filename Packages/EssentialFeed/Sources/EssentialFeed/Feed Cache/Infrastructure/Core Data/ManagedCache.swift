@@ -8,6 +8,7 @@
 import CoreData
 import Foundation
 
+@objc(ManagedCache)
 class ManagedCache: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var feed: NSOrderedSet
