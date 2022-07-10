@@ -24,12 +24,7 @@ public final class CoreDataFeedStore: FeedStore {
             let request = NSFetchRequest<ManagedCache>(entityName: ManagedCache.entity().name!)
             request.returnsObjectsAsFaults = false
             if let cache = try! context.fetch(request).first {
-                completion(.found(
-                    feed: cache.feed
-                        .compactMap { $0 as? ManagedFeedImage }
-                        .map { LocalFeedImage(id: $0.id, url: $0.url, location: $0.location, description: $0.imageDescription) },
-                    timestamp: cache.timestamp
-                ))
+                completion(.found(feed: cache.localFeed, timestamp: cache.timestamp))
             } else {
                 completion(.empty)
             }
@@ -42,14 +37,7 @@ public final class CoreDataFeedStore: FeedStore {
             do {
                 let managedCache = ManagedCache(context: context)
                 managedCache.timestamp = timestamp
-                managedCache.feed = NSOrderedSet(array: feed.map { local in
-                    let managed = ManagedFeedImage(context: context)
-                    managed.id = local.id
-                    managed.url = local.url
-                    managed.location = local.location
-                    managed.imageDescription = local.description
-                    return managed
-                })
+                managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
 
                 try context.save()
                 completion(nil)

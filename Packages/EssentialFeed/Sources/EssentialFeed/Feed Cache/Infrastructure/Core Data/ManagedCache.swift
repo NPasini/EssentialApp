@@ -12,4 +12,8 @@ import Foundation
 class ManagedCache: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var feed: NSOrderedSet
+
+    var localFeed: [LocalFeedImage] {
+        feed.compactMap { ($0 as? ManagedFeedImage)?.local }
+    }
 }
