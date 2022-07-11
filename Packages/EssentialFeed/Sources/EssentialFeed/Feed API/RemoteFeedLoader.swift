@@ -12,7 +12,7 @@ public final class RemoteFeedLoader: FeedLoader {
     private let url: URL
     private let client: HTTPClient
 
-    public typealias Result = FeedLoadResult
+    public typealias Result = FeedLoader.Result
 
     public init(url: URL, client: HTTPClient) {
         self.url = url
