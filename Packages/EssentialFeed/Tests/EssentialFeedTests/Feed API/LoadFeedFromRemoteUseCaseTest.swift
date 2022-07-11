@@ -69,6 +69,24 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         })
     }
 
+    func test_load_deliversInvalidDataErrorOn200HTTPResponseWithPartiallyValidJSONItems() {
+        let (sut, client) = makeSUT()
+
+        let validItem = makeItem(
+            id: UUID(),
+            imageURL: URL(string: "http://another-url.com")!
+        ).json
+
+        let invalidItem = ["invalid": "item"]
+
+        let items = [validItem, invalidItem]
+
+        expect(sut, toCompleteWith: .failure(APIError.invalidData), when: {
+            let json = makeItemsJson(items)
+            client.complete(withStatusCode: 200, data: json)
+        })
+    }
+
     func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJsonList() {
         let (sut, client) = makeSUT()
 
