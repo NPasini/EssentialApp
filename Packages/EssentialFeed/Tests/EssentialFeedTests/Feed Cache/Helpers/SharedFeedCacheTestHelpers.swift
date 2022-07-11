@@ -9,16 +9,6 @@ import Foundation
 import TestUtilities
 import EssentialFeed
 
-func uniqueImage() -> FeedImage {
-    FeedImage(id: UUID(), url: anyURL(), location: "any", description: "any")
-}
-
-func uniqueImageFeed() -> (models: [FeedImage], locals: [LocalFeedImage]) {
-    let models = [uniqueImage(), uniqueImage()]
-    let locals = models.map { LocalFeedImage(id: $0.id, url: $0.url, location: $0.location, description: $0.description) }
-    return (models, locals)
-}
-
 extension Date {
 
     private var feedCacheMaxAgeInDays: Int { 7 }
