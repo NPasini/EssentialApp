@@ -9,12 +9,31 @@ import CoreData
 
 public final class CoreDataFeedStore: FeedStore {
 
+    public static let modelName = "FeedStore"
+    public static let model = NSManagedObjectModel(name: modelName, in: essentialFeedPackageBundle)
+
     private let context: NSManagedObjectContext
     private let container: NSPersistentContainer
 
-    public init(storeURL: URL, bundle: Bundle = .main) throws {
-        container = try NSPersistentContainer.load(modelName: "FeedStore", url: storeURL, in: bundle)
+    public struct ModelNotFound: Error {
+        public let modelName: String
+    }
+
+    public init(storeURL: URL) throws {
+        guard let model = CoreDataFeedStore.model else {
+            throw ModelNotFound(modelName: CoreDataFeedStore.modelName)
+        }
+
+        container = try NSPersistentContainer.load(
+            name: CoreDataFeedStore.modelName,
+            model: model,
+            url: storeURL
+        )
         context = container.newBackgroundContext()
+    }
+
+    deinit {
+        cleanUpReferencesToPersistentStores()
     }
 
     public func retrieve(completion: @escaping RetrievalCompletion) {
@@ -41,6 +60,7 @@ public final class CoreDataFeedStore: FeedStore {
                 try context.save()
                 completion(nil)
             } catch {
+                context.rollback()
                 completion(error)
             }
         }
@@ -52,8 +72,16 @@ public final class CoreDataFeedStore: FeedStore {
                 try ManagedCache.find(in: context).map(context.delete).map(context.save)
                 completion(nil)
             } catch {
+                context.rollback()
                 completion(error)
             }
+        }
+    }
+
+    private func cleanUpReferencesToPersistentStores() {
+        context.performAndWait {
+            let coordinator = self.container.persistentStoreCoordinator
+            try? coordinator.persistentStores.forEach(coordinator.remove)
         }
     }
 
