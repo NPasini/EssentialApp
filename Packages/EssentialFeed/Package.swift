@@ -1,5 +1,4 @@
 // swift-tools-version: 5.6
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -10,20 +9,28 @@ let package = Package(
         .library(
             name: "EssentialFeed",
             targets: ["EssentialFeed"]),
+        .library(
+            name: "EssentialFeediOS",
+            targets: ["EssentialFeediOS"]),
     ],
-    dependencies: [
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "EssentialFeed",
             dependencies: [],
             resources: [.process("Resources")]),
         .target(
+            name: "EssentialFeediOS",
+            dependencies: []),
+        .target(
             name: "TestUtilities",
             dependencies: ["EssentialFeed"]),
         .testTarget(
             name: "EssentialFeedTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),
+        .testTarget(
+            name: "EssentialFeediOSTests",
+            dependencies: ["EssentialFeediOS", "TestUtilities"]),
         .testTarget(
             name: "EssentialFeedAPIEndToEndTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),
