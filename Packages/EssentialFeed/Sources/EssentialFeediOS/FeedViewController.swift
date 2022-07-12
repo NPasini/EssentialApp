@@ -58,12 +58,15 @@ public final class FeedViewController: UITableViewController {
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellModel = tableModel[indexPath.row]
         let cell = FeedImageCell()
+        cell.feedImageView.image = nil
         cell.locationLabel.text = cellModel.location
         cell.descriptionLabel.text = cellModel.description
         cell.locationContainer.isHidden = cellModel.location == nil
 
         cell.feedImageContainer.startShimmering()
         imageDataTasks[indexPath] = imageLoader?.loadImageData(from: cellModel.url) { [weak cell] result in
+            let imageData = try? result.get()
+            cell?.feedImageView.image = imageData.map(UIImage.init) ?? nil
             cell?.feedImageContainer.stopShimmering()
         }
 
