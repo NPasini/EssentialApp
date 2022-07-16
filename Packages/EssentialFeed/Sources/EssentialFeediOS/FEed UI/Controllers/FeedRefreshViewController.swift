@@ -12,7 +12,7 @@ final class FeedRefreshViewController: NSObject {
 
     var onRefresh: (([FeedImage]) -> Void)?
 
-    private var feedLoader: FeedLoader
+    private let feedLoader: FeedLoader
 
     private(set) lazy var view: UIRefreshControl = {
         let view = UIRefreshControl()
