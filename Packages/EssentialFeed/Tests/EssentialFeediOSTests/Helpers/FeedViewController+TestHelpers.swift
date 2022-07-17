@@ -7,8 +7,9 @@
 
 import UIKit
 import EssentialFeediOS
+import EssentialFeediOSMVC
 
-extension FeedViewController {
+extension EssentialFeediOSMVC.FeedViewController {
 
     var feedImageSection: Int { 0 }
 
