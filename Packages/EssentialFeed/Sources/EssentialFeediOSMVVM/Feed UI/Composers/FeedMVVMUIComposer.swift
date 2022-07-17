@@ -1,5 +1,5 @@
 //
-//  FeedUIComposer.swift
+//  FeedMVVMUIComposer.swift
 //  
 //
 //  Created by Nicolò Pasini on 17/07/22.
@@ -8,12 +8,13 @@
 import Foundation
 import EssentialFeed
 
-public enum FeedUIComposer {
+public enum FeedMVVMUIComposer {
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let refreshController = FeedRefreshViewController(feedLoader: feedLoader)
+        let viewModel = FeedViewModel(feedLoader: feedLoader)
+        let refreshController = FeedRefreshViewController(viewModel: viewModel)
         let feedController = FeedViewController(refreshController: refreshController)
-        refreshController.onRefresh = adaptFeedToCellControllers(forwardingTo: feedController, imageLoader: imageLoader)
+        viewModel.onFeedLoad = adaptFeedToCellControllers(forwardingTo: feedController, imageLoader: imageLoader)
 
         return feedController
     }

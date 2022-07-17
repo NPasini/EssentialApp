@@ -1,5 +1,5 @@
 //
-//  FeedUIComposer.swift
+//  FeedMVPUIComposer.swift
 //  
 //
 //  Created by Nicolò Pasini on 17/07/22.
@@ -8,7 +8,7 @@
 import Foundation
 import EssentialFeed
 
-public enum FeedUIComposer {
+public enum FeedMVPUIComposer {
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
         let refreshController = FeedRefreshViewController(feedLoader: feedLoader)

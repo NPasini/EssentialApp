@@ -7,7 +7,7 @@
 
 import UIKit
 import EssentialFeediOS
-import EssentialFeediOSMVC
+import EssentialFeediOSMVVM
 
 extension FeedImageCell {
 

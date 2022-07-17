@@ -8,7 +8,7 @@
 import Foundation
 import EssentialFeed
 import EssentialFeediOS
-import EssentialFeediOSMVC
+import EssentialFeediOSMVVM
 
 class LoaderSpy: FeedLoader, FeedImageDataLoader {
 

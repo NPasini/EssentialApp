@@ -9,7 +9,7 @@ import XCTest
 import TestUtilities
 import EssentialFeed
 import EssentialFeediOS
-import EssentialFeediOSMVC
+import EssentialFeediOSMVVM
 
 class FeedViewControllerTests: XCTestCase {
 

@@ -1,37 +1,40 @@
 //
 //  FeedRefreshViewController.swift
-//  
+//
 //
 //  Created by Nicolò Pasini on 16/07/22.
 //
 
 import UIKit
-import EssentialFeed
 
 final class FeedRefreshViewController: NSObject {
 
-    var onRefresh: (([FeedImage]) -> Void)?
+    private let viewModel: FeedViewModel
 
-    private let feedLoader: FeedLoader
+    private(set) lazy var view = binded(UIRefreshControl())
 
-    private(set) lazy var view: UIRefreshControl = {
-        let view = UIRefreshControl()
-        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        return view
-    }()
-
-    init(feedLoader: FeedLoader) {
-        self.feedLoader = feedLoader
+    init(viewModel: FeedViewModel) {
+        self.viewModel = viewModel
     }
 
     @objc func refresh() {
-        view.beginRefreshing()
-        feedLoader.load { [weak self] result in
-            if let feed = try? result.get() {
-                self?.onRefresh?(feed)
-            }
+        viewModel.loadFeed()
+    }
 
-            self?.view.endRefreshing()
+    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
+        // Binding ViewModel with View
+        viewModel.onChange = { [weak self] viewModel in
+            if viewModel.isLoading {
+                view.beginRefreshing()
+            } else {
+                view.endRefreshing()
+            }
         }
+
+        // Binding View with ViewModel
+        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        // We are keeping the tartge of the action as the ViewController, since, in order to be a target, the object needs to conform to NSObject and this is a UIKit details which we don't want to leak in the ViewModel. Using other frameworks like Combine we could have been able to bind directly
+
+        return view
     }
 }
