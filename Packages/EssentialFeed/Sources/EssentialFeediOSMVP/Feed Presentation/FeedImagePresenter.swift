@@ -14,6 +14,8 @@ struct FeedImageViewModel<Image> {
     let location: String?
     let shouldRetry: Bool
     let description: String?
+
+    var hasLocation: Bool { location != nil }
 }
 
 protocol FeedImageView: AnyObject {
@@ -24,50 +26,32 @@ protocol FeedImageView: AnyObject {
 
 final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
 
-    weak var view: View?
-
-    var location: String? {
-        model.location
-    }
-
-    var description: String? {
-        model.description
-    }
-
-    var hasLocation: Bool {
-        location != nil
-    }
-
-    private let model: FeedImage
-    private var task: FeedImageDataLoaderTask?
-    private let imageLoader: FeedImageDataLoader
+    private let view: View
     private let imageTransformer: (Data) -> Image?
 
-    init(feed: FeedImage, imageLoader: FeedImageDataLoader, imageTransformer: @escaping (Data) -> Image?) {
-        self.model = feed
-        self.imageLoader = imageLoader
+    private struct InvalidImageDataError: Error {}
+
+    init(view: View, imageTransformer: @escaping (Data) -> Image?) {
+        self.view = view
         self.imageTransformer = imageTransformer
     }
 
-    func loadImageData() {
+    func didStartLoadingImageData(for model: FeedImage) {
         let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: true, location: model.location, shouldRetry: false, description: model.description)
-        view?.display(viewModel)
-        task = imageLoader.loadImageData(from: model.url) { [weak self] result in
-            self?.handle(result)
-        }
+        view.display(viewModel)
     }
 
-    func cancelTask() {
-        task?.cancel()
+    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+        guard let image = imageTransformer(data) else {
+            return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
+        }
+
+        let viewModel = FeedImageViewModel(image: image, isLoading: false, location: model.location, shouldRetry: false, description: model.description)
+        view.display(viewModel)
     }
 
-    private func handle(_ result: FeedImageDataLoader.Result) {
-        if let image = (try? result.get()).flatMap(imageTransformer) {
-            let viewModel = FeedImageViewModel(image: image, isLoading: false, location: model.location, shouldRetry: false, description: model.description)
-            view?.display(viewModel)
-        } else {
-            let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: false, location: model.location, shouldRetry: true, description: model.description)
-            view?.display(viewModel)
-        }
+    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+        let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: false, location: model.location, shouldRetry: true, description: model.description)
+        view.display(viewModel)
     }
 }
