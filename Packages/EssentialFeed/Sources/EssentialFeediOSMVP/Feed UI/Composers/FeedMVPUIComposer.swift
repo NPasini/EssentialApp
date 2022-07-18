@@ -15,10 +15,26 @@ public enum FeedMVPUIComposer {
         let presenter = FeedPresenter(feedLoader: feedLoader)
         let refreshController = FeedRefreshViewController(presenter: presenter)
         let feedController = FeedViewController(refreshController: refreshController)
-        presenter.loadingView = refreshController
+        presenter.loadingView = WeakRefVirtualProxy(refreshController)
         presenter.feedView = FeedViewAdapter(controller: feedController, imageLoader: imageLoader)
 
         return feedController
+    }
+}
+
+public final class WeakRefVirtualProxy<Object: AnyObject> {
+
+    private weak var object: Object?
+
+    init(_ object: Object) {
+        self.object = object
+    }
+}
+
+extension WeakRefVirtualProxy: FeedLoadingView where Object: FeedLoadingView {
+
+    func display(isLoading: Bool) {
+        object?.display(isLoading: isLoading)
     }
 }
 
