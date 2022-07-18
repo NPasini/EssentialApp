@@ -5,9 +5,9 @@
 //  Created by Nicolò Pasini on 17/07/22.
 //
 
+import UIKit
 import Foundation
 import EssentialFeed
-import UIKit
 
 public enum FeedMVVMUIComposer {
 

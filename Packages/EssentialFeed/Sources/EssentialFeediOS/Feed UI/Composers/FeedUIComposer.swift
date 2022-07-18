@@ -7,11 +7,11 @@
 
 import Foundation
 import EssentialFeed
-import EssentialFeediOSMVVM
+import EssentialFeediOSMVP
 
 public enum FeedUIComposer {
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        FeedMVVMUIComposer.feedComposedWith(feedLoader: feedLoader, imageLoader: imageLoader)
+        FeedMVPUIComposer.feedComposedWith(feedLoader: feedLoader, imageLoader: imageLoader)
     }
 }

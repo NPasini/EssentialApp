@@ -7,7 +7,7 @@
 
 import UIKit
 import EssentialFeediOS
-import EssentialFeediOSMVVM
+import EssentialFeediOSMVP
 
 extension FeedViewController {
 

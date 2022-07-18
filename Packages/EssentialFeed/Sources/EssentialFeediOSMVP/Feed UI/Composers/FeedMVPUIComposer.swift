@@ -5,24 +5,37 @@
 //  Created by Nicolò Pasini on 17/07/22.
 //
 
+import UIKit
 import Foundation
 import EssentialFeed
 
 public enum FeedMVPUIComposer {
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let refreshController = FeedRefreshViewController(feedLoader: feedLoader)
+        let presenter = FeedPresenter(feedLoader: feedLoader)
+        let refreshController = FeedRefreshViewController(presenter: presenter)
         let feedController = FeedViewController(refreshController: refreshController)
-        refreshController.onRefresh = adaptFeedToCellControllers(forwardingTo: feedController, imageLoader: imageLoader)
+        presenter.loadingView = refreshController
+        presenter.feedView = FeedViewAdapter(controller: feedController, imageLoader: imageLoader)
 
         return feedController
     }
+}
 
-    private static func adaptFeedToCellControllers(forwardingTo controller: FeedViewController, imageLoader: FeedImageDataLoader) -> ([FeedImage]) -> Void {
-        { [weak controller] feed in
-            controller?.tableModel = feed.map {
-                FeedImageCellController(model: $0, imageLoader: imageLoader)
-            }
+private final class FeedViewAdapter: FeedView {
+
+    private let imageLoader: FeedImageDataLoader
+    private weak var controller: FeedViewController?
+
+    init(controller: FeedViewController, imageLoader: FeedImageDataLoader) {
+        self.controller = controller
+        self.imageLoader = imageLoader
+    }
+
+    func display(feed: [FeedImage]) {
+        controller?.tableModel = feed.map {
+            let feedImageViewModel = FeedImageViewModel(feed: $0, imageLoader: imageLoader, imageTransformer: UIImage.init)
+            return FeedImageCellController(viewModel: feedImageViewModel)
         }
     }
 }
