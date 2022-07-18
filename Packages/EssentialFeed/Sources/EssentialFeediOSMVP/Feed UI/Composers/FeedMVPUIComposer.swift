@@ -29,30 +29,6 @@ public enum FeedMVPUIComposer {
     }
 }
 
-public final class WeakRefVirtualProxy<Object: AnyObject> {
-
-    private weak var object: Object?
-
-    init(_ object: Object) {
-        self.object = object
-    }
-}
-
-extension WeakRefVirtualProxy: FeedLoadingView where Object: FeedLoadingView {
-
-    func display(_ viewModel: FeedLoadingViewModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: FeedImageView where Object: FeedImageView, Object.Image == UIImage {
-    typealias Image = UIImage
-
-    func display(_ viewModel: FeedImageViewModel<Image>) {
-        object?.display(viewModel)
-    }
-}
-
 private final class FeedViewAdapter: FeedView {
 
     private let imageLoader: FeedImageDataLoader
