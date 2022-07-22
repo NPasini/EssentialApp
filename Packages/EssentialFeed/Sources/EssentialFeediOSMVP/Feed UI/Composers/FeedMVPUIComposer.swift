@@ -15,7 +15,9 @@ public enum FeedMVPUIComposer {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
         let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
-        let feedController = FeedViewController(refreshController: refreshController)
+        let storyboard = UIStoryboard(name: "Feed", bundle: essentialFeediOSMVPPackageBundle)
+        let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
+        feedController.refreshController = refreshController
 
         presentationAdapter.presenter = FeedPresenter(
             feedView: FeedViewAdapter(
