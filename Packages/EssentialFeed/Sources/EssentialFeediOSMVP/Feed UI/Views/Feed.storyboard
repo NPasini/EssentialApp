@@ -126,6 +126,7 @@ Location</string>
                         <connections>
                             <outlet property="dataSource" destination="UWV-Ir-cBB" id="hb6-Go-Bt1"/>
                             <outlet property="delegate" destination="UWV-Ir-cBB" id="gKW-uc-9ol"/>
+                            <outlet property="prefetchDataSource" destination="UWV-Ir-cBB" id="mEV-If-EtK"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="tod-hM-nAK">
