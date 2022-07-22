@@ -30,7 +30,8 @@ let package = Package(
             dependencies: ["EssentialFeed"]),
         .target(
             name: "EssentialFeediOSMVP",
-            dependencies: ["EssentialFeed"]),
+            dependencies: ["EssentialFeed"],
+            resources: [.process("Resources")]),
         .target(
             name: "TestUtilities",
             dependencies: ["EssentialFeed"]),
