@@ -17,6 +17,8 @@ protocol FeedLoadingView: AnyObject {
 
 final class FeedPresenter {
 
+    static var title: String { "My Feed" }
+
     private let feedView: FeedView
     private let loadingView: FeedLoadingView
 
