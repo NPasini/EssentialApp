@@ -22,7 +22,7 @@ public enum FeedMVPUIComposer {
         presentationAdapter.presenter = FeedPresenter(
             feedView: FeedViewAdapter(
                 controller: feedController,
-                imageLoader: imageLoader
+                imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)
             ),
             loadingView: WeakRefVirtualProxy(feedController)
         )
