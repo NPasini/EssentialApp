@@ -16,6 +16,7 @@ public enum FeedMVPUIComposer {
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
         let storyboard = UIStoryboard(name: "Feed", bundle: essentialFeediOSMVPPackageBundle)
         let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
+        feedController.title = FeedPresenter.title
         feedController.delegate = presentationAdapter
 
         presentationAdapter.presenter = FeedPresenter(
