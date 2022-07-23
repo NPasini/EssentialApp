@@ -14,10 +14,10 @@ public enum FeedMVPUIComposer {
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
-        let storyboard = UIStoryboard(name: "Feed", bundle: essentialFeediOSMVPPackageBundle)
-        let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
-        feedController.title = FeedPresenter.title
-        feedController.delegate = presentationAdapter
+        let feedController = FeedViewController.makeWith(
+            title: FeedPresenter.title,
+            delegate: presentationAdapter
+        )
 
         presentationAdapter.presenter = FeedPresenter(
             feedView: FeedViewAdapter(
@@ -27,6 +27,16 @@ public enum FeedMVPUIComposer {
             loadingView: WeakRefVirtualProxy(feedController)
         )
 
+        return feedController
+    }
+}
+
+private extension FeedViewController {
+    static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> FeedViewController {
+        let storyboard = UIStoryboard(name: "Feed", bundle: essentialFeediOSMVPPackageBundle)
+        let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
+        feedController.title = FeedPresenter.title
+        feedController.delegate = delegate
         return feedController
     }
 }
