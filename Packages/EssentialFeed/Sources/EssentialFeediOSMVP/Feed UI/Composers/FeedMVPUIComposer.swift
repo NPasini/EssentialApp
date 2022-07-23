@@ -41,9 +41,10 @@ private final class FeedViewAdapter: FeedView {
     }
 
     func display(_ viewModel: FeedViewModel) {
-        controller?.tableModel = viewModel.feed.map {
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(feed: $0, imageLoader: imageLoader)
+        controller?.tableModel = viewModel.feed.map { model in
+            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
             let view = FeedImageCellController(delegate: adapter)
+
             adapter.presenter = FeedImagePresenter(
                 view: WeakRefVirtualProxy(view),
                 imageTransformer: UIImage.init
@@ -85,8 +86,8 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
     private var task: FeedImageDataLoaderTask?
     private let imageLoader: FeedImageDataLoader
 
-    init(feed: FeedImage, imageLoader: FeedImageDataLoader) {
-        self.model = feed
+    init(model: FeedImage, imageLoader: FeedImageDataLoader) {
+        self.model = model
         self.imageLoader = imageLoader
     }
 
@@ -98,7 +99,7 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
             switch result {
             case let .success(data):
                 self?.presenter?.didFinishLoadingImageData(with: data, for: model)
-                
+
             case let .failure(error):
                 self?.presenter?.didFinishLoadingImageData(with: error, for: model)
             }

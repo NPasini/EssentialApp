@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class WeakRefVirtualProxy<Object: AnyObject> {
+final class WeakRefVirtualProxy<Object: AnyObject> {
 
     private weak var object: Object?
 
