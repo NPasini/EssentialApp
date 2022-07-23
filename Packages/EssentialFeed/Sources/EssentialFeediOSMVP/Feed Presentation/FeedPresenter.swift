@@ -5,6 +5,8 @@
 //  Created by Nicolò Pasini on 18/07/22.
 //
 
+import Foundation
+import iOSUtilities
 import EssentialFeed
 
 protocol FeedView {
@@ -17,7 +19,12 @@ protocol FeedLoadingView: AnyObject {
 
 final class FeedPresenter {
 
-    static var title: String { "My Feed" }
+    static var title: String {
+        NSLocalizedString("FEED_VIEW_TITLE",
+                    tableName: "Feed",
+                    bundle: iOSUtilitiesPackageBundle,
+                    comment: "Title for the feed view")
+    }
 
     private let feedView: FeedView
     private let loadingView: FeedLoadingView

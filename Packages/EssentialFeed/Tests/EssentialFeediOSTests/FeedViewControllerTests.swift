@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import iOSUtilities
 import TestUtilities
 import EssentialFeed
 import EssentialFeediOS
@@ -18,7 +19,12 @@ class FeedViewControllerTests: XCTestCase {
 
         sut.loadViewIfNeeded()
 
-        XCTAssertEqual(sut.title, "My Feed")
+        let bundle = iOSUtilitiesPackageBundle
+        let localizedKey = "FEED_VIEW_TITLE"
+        let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "Feed")
+
+        XCTAssertNotEqual(localizedKey, localizedTitle, "Missing localized string for key: \(localizedKey)")
+        XCTAssertEqual(sut.title, localizedTitle)
     }
 
     // We have multiple assertions per test beacuse when working with frameworks temporal coupling is dangerous
