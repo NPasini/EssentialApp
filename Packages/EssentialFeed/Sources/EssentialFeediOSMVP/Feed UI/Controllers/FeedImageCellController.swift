@@ -38,9 +38,9 @@ final class FeedImageCellController: FeedImageView {
 
     func display(_ viewModel: FeedImageViewModel<UIImage>) {
         cell?.onRetry = delegate.didRequestImage
-        cell?.feedImageView.image = viewModel.image
         cell?.locationLabel.text = viewModel.location
         cell?.descriptionLabel.text = viewModel.description
+        cell?.feedImageView.setImageAnimated(viewModel.image)
         cell?.locationContainer.isHidden = !viewModel.hasLocation
         cell?.feedImageContainer.isShimmering = viewModel.isLoading
         cell?.feedImageRetryButton.isHidden = !viewModel.shouldRetry
