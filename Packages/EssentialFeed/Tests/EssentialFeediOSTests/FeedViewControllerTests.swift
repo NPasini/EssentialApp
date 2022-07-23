@@ -13,6 +13,14 @@ import EssentialFeediOSMVP
 
 class FeedViewControllerTests: XCTestCase {
 
+    func test_feedView_hasTitle() {
+        let (sut, _) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.title, "My Feed")
+    }
+
     // We have multiple assertions per test beacuse when working with frameworks temporal coupling is dangerous
     func test_loadFeedActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
