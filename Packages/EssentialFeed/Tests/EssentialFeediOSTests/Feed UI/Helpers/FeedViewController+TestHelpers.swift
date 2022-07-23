@@ -21,6 +21,10 @@ extension FeedViewController {
         tableView.numberOfRows(inSection: feedImageSection)
     }
 
+    var errorMessage: String? {
+        errorView?.message
+    }
+
     func simulateUserInitiatedFeedReload() {
         refreshControl?.simulatePullToRefresh()
     }
@@ -58,5 +62,9 @@ extension FeedViewController {
         let ds = tableView.prefetchDataSource
         let index = IndexPath(row: row, section: feedImageSection)
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
+    }
+
+    func simulateUserTapOnErrorMessage() {
+        errorView?.button.simulateTap()
     }
 }
