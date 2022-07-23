@@ -24,13 +24,16 @@ let package = Package(
             dependencies: ["EssentialFeediOSMVC", "EssentialFeediOSMVVM", "EssentialFeediOSMVP"]),
         .target(
             name: "EssentialFeediOSMVC",
-            dependencies: ["EssentialFeed"]),
+            dependencies: ["EssentialFeed", "iOSUtilities"]),
         .target(
             name: "EssentialFeediOSMVVM",
-            dependencies: ["EssentialFeed"]),
+            dependencies: ["EssentialFeed", "iOSUtilities"]),
         .target(
             name: "EssentialFeediOSMVP",
-            dependencies: ["EssentialFeed"],
+            dependencies: ["EssentialFeed", "iOSUtilities"]),
+        .target(
+            name: "iOSUtilities",
+            dependencies: [],
             resources: [.process("Resources")]),
         .target(
             name: "TestUtilities",

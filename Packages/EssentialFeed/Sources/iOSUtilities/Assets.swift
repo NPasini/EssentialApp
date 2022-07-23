@@ -8,5 +8,5 @@
 import UIKit
 
 public extension UIImage {
-    static var pin: UIImage { UIImage(named: #function, in: essentialFeediOSMVPPackageBundle, compatibleWith: nil)! }
+    static var pin: UIImage { UIImage(named: #function, in: iOSUtilitiesPackageBundle, compatibleWith: nil)! }
 }
