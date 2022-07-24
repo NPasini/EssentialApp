@@ -9,53 +9,6 @@ import XCTest
 import EssentialFeed
 import TestUtilities
 
-public protocol FeedImageView: AnyObject {
-    associatedtype Image
-
-    func display(_ viewModel: FeedImageViewModel<Image>)
-}
-
-public struct FeedImageViewModel<Image> {
-    let image: Image?
-    let isLoading: Bool
-    let location: String?
-    let shouldRetry: Bool
-    let description: String?
-
-    var hasLocation: Bool { location != nil }
-}
-
-public final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
-
-    private struct InvalidImageDataError: Error {}
-
-    private let view: View
-    private let imageTransformer: (Data) -> Image?
-
-    public init(view: View, imageTransformer: @escaping (Data) -> Image?) {
-        self.view = view
-        self.imageTransformer = imageTransformer
-    }
-
-    public func didStartLoadingImageData(for model: FeedImage) {
-        let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: true, location: model.location, shouldRetry: false, description: model.description)
-        view.display(viewModel)
-    }
-
-    public func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        guard let image = imageTransformer(data) else {
-            return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
-        }
-        let viewModel = FeedImageViewModel(image: image, isLoading: false, location: model.location, shouldRetry: false, description: model.description)
-        view.display(viewModel)
-    }
-
-    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
-        let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: false, location: model.location, shouldRetry: true, description: model.description)
-        view.display(viewModel)
-    }
-}
-
 class FeedImagePresenterTests: XCTestCase {
 
     func test_init_doesNotSendMessagesToView() {
@@ -114,7 +67,7 @@ class FeedImagePresenterTests: XCTestCase {
         let image = uniqueImage()
         let (sut, view) = makeSUT()
 
-        sut.didFinishLoadingImageData(with: anyNSError(), for: image)
+        sut.didFinishLoadingImageData(with: anyData(), for: image)
 
         let message = view.messages.first
         XCTAssertEqual(view.messages.count, 1)
