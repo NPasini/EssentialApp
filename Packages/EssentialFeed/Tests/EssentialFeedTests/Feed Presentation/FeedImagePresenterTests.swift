@@ -27,6 +27,8 @@ public struct FeedImageViewModel<Image> {
 
 public final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
 
+    private struct InvalidImageDataError: Error {}
+
     private let view: View
     private let imageTransformer: (Data) -> Image?
 
@@ -41,8 +43,15 @@ public final class FeedImagePresenter<View: FeedImageView, Image> where View.Ima
     }
 
     public func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        let image = imageTransformer(data)!
+        guard let image = imageTransformer(data) else {
+            return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
+        }
         let viewModel = FeedImageViewModel(image: image, isLoading: false, location: model.location, shouldRetry: false, description: model.description)
+        view.display(viewModel)
+    }
+
+    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+        let viewModel = FeedImageViewModel<Image>(image: nil, isLoading: false, location: model.location, shouldRetry: true, description: model.description)
         view.display(viewModel)
     }
 }
@@ -67,6 +76,22 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(message?.location, image.location)
         XCTAssertEqual(message?.isLoading, true)
         XCTAssertEqual(message?.shouldRetry, false)
+        XCTAssertNil(message?.image)
+    }
+
+    func test_didFinishLoadingImageData_displaysRetryOnFailedImageTransformation() {
+        let data = anyData()
+        let image = uniqueImage()
+        let (sut, view) = makeSUT(imageTransformer: { _ in nil })
+
+        sut.didFinishLoadingImageData(with: data, for: image)
+
+        let message = view.messages.first
+        XCTAssertEqual(view.messages.count, 1)
+        XCTAssertEqual(message?.description, image.description)
+        XCTAssertEqual(message?.location, image.location)
+        XCTAssertEqual(message?.isLoading, false)
+        XCTAssertEqual(message?.shouldRetry, true)
         XCTAssertNil(message?.image)
     }
 
