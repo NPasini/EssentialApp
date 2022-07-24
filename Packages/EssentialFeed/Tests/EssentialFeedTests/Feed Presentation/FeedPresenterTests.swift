@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import iOSUtilities
 import EssentialFeed
 import TestUtilities
 
@@ -36,6 +37,10 @@ struct FeedErrorViewModel {
     static var noError: FeedErrorViewModel {
         FeedErrorViewModel(errorMessage: nil)
     }
+
+    static func error(message: String) -> FeedErrorViewModel {
+        FeedErrorViewModel(errorMessage: message)
+    }
 }
 
 final class FeedPresenter {
@@ -58,6 +63,11 @@ final class FeedPresenter {
     func didFinishLoadingFeed(with feed: [FeedImage]) {
         feedView.display(FeedViewModel(feed: feed))
         loadingView.display(FeedLoadingViewModel(isLoading: false))
+    }
+
+    func didFinishLoadingFeed(with error: Error) {
+        loadingView.display(FeedLoadingViewModel(isLoading: false))
+        errorView.display(FeedErrorViewModel(errorMessage: Localized.Feed.loadError))
     }
 }
 
@@ -88,6 +98,17 @@ class FeedPresenterTests: XCTestCase {
 
         XCTAssertEqual(view.messages, [
             .display(feed: feed),
+            .display(isLoading: false)
+        ])
+    }
+
+    func test_didFinishLoadingFeedWithError_displaysLocalizedErrorMessageAndStopsLoading() {
+        let (sut, view) = makeSUT()
+
+        sut.didFinishLoadingFeed(with: anyNSError())
+
+        XCTAssertEqual(view.messages, [
+            .display(errorMessage: localized("FEED_VIEW_CONNECTION_ERROR")),
             .display(isLoading: false)
         ])
     }
