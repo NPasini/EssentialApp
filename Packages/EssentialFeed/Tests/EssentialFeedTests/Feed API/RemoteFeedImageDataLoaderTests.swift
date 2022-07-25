@@ -11,6 +11,15 @@ import TestUtilities
 
 class RemoteFeedImageDataLoader {
 
+    private struct HTTPTaskWrapper: FeedImageDataLoaderTask {
+
+        let wrapped: HTTPClientTask
+
+        func cancel() {
+            wrapped.cancel()
+        }
+    }
+
     private let client: HTTPClient
 
     private static var isOK: Int { 200 }
@@ -19,8 +28,9 @@ class RemoteFeedImageDataLoader {
         self.client = client
     }
 
-    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
-        client.get(from: url) { [weak self] result in
+    @discardableResult
+    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+        let task = client.get(from: url) { [weak self] result in
             guard self != nil else { return }
             switch result {
             case .failure:
@@ -32,6 +42,8 @@ class RemoteFeedImageDataLoader {
                 completion(.success(data))
             }
         }
+
+        return HTTPTaskWrapper(wrapped: task)
     }
 }
 
