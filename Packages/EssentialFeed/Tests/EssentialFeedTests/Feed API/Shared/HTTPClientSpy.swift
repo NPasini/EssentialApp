@@ -11,7 +11,12 @@ import EssentialFeed
 class HTTPClientSpy: HTTPClient {
 
     struct Task: HTTPClientTask {
-        func cancel() {}
+
+        var onCancel: () -> Void
+
+        func cancel() {
+            onCancel()
+        }
     }
 
     private(set) var receivedMessages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
@@ -20,9 +25,13 @@ class HTTPClientSpy: HTTPClient {
         receivedMessages.map { $0.url }
     }
 
+    var cancelledURLs = [URL]()
+
     func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> HTTPClientTask {
         receivedMessages.append((url, completion))
-        return Task()
+        return Task { [weak self] in
+            self?.cancelledURLs.append(url)
+        }
     }
 
     func complete(with error: Error, at index: Int = 0) {
