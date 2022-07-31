@@ -35,8 +35,6 @@ public final class RemoteFeedImageDataLoader: FeedImageDataLoader {
 
     private let client: HTTPClient
 
-    private static var isOK: Int { 200 }
-
     public init(client: HTTPClient) {
         self.client = client
     }
@@ -49,7 +47,7 @@ public final class RemoteFeedImageDataLoader: FeedImageDataLoader {
             task.complete(with: result
                 .mapError { _ in APIError.connectivity }
                 .flatMap { (data, response) in
-                    let isValidResponse = response.statusCode == RemoteFeedImageDataLoader.isOK && !data.isEmpty
+                    let isValidResponse = response.isOK && !data.isEmpty
                     return isValidResponse ? .success(data) : .failure(APIError.invalidData)
                 })
         }
