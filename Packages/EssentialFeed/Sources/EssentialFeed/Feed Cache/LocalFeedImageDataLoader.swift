@@ -7,9 +7,9 @@
 
 import Foundation
 
-public final class LocalFeedImageDataLoader: FeedImageDataLoader {
+public final class LocalFeedImageDataLoader {
 
-    private final class Task: FeedImageDataLoaderTask {
+    private final class LoadImageDataTask: FeedImageDataLoaderTask {
 
         private var completion: ((FeedImageDataLoader.Result) -> Void)?
 
@@ -30,29 +30,38 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader {
         }
     }
 
-    public enum Error: Swift.Error {
-        case failed
-        case notFound
-    }
-
     private let store: FeedImageDataStore
 
     public init(store: FeedImageDataStore) {
         self.store = store
     }
+}
 
-    public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-        let task = Task(completion)
+extension LocalFeedImageDataLoader: FeedImageDataLoader {
+
+    public enum LoadError: Error {
+        case failed
+        case notFound
+    }
+
+    public typealias LoadResult = FeedImageDataLoader.Result
+
+    public func loadImageData(from url: URL, completion: @escaping (LoadResult) -> Void) -> FeedImageDataLoaderTask {
+        let task = LoadImageDataTask(completion)
         store.retrieve(dataForURL: url) { [weak self] result in
             guard self != nil else { return }
 
             task.complete(with: result
-                .mapError { _ in Error.failed }
-                .flatMap { data in data.map { .success($0) } ?? .failure(Error.notFound) }
-            )
+                .mapError { _ in LoadError.failed }
+                .flatMap { data in
+                    data.map { .success($0) } ?? .failure(LoadError.notFound)
+                })
         }
         return task
     }
+}
+
+extension LocalFeedImageDataLoader {
 
     public typealias SaveResult = Result<Void, Swift.Error>
 
