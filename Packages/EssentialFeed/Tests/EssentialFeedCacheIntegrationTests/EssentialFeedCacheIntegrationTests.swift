@@ -86,14 +86,25 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
     }
 
     func test_validateFeedCache_doesNotDeleteRecentlySavedFeed() {
+        let feed = uniqueImageFeed().models
         let feedLoaderToPerformSave = makeFeedLoader()
         let feedLoaderToPerformValidation = makeFeedLoader()
-        let feed = uniqueImageFeed().models
 
         save(feed, with: feedLoaderToPerformSave)
         validateCache(with: feedLoaderToPerformValidation)
 
         expect(feedLoaderToPerformSave, toLoad: feed)
+    }
+
+    func test_validateFeedCache_deletesLongAgoSavedFeed() {
+        let feed = uniqueImageFeed().models
+        let feedLoaderToPerformValidation = makeFeedLoader()
+        let feedLoaderToPerformSave = makeFeedLoader(currentDate: .distantPast)
+
+        save(feed, with: feedLoaderToPerformSave)
+        validateCache(with: feedLoaderToPerformValidation)
+
+        expect(feedLoaderToPerformSave, toLoad: [])
     }
 
     // MARK: - Helpers
