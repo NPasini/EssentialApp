@@ -70,6 +70,7 @@
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="Ckt-hE-ARL">
                                                                     <rect key="frame" x="0.0" y="3" width="10" height="14"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="width" constant="10" id="O9p-bk-i5J"/>
                                                                         <constraint firstAttribute="height" constant="14" id="cMX-gR-iVY"/>
                                                                     </constraints>
                                                                 </imageView>
@@ -156,6 +157,7 @@ Location</string>
                                     <outlet property="feedImageView" destination="hSj-1z-YPy" id="RYh-aq-5ZW"/>
                                     <outlet property="locationContainer" destination="wZn-pu-dRj" id="Iic-e9-X2s"/>
                                     <outlet property="locationLabel" destination="dhu-5i-Y8C" id="jCt-VR-brb"/>
+                                    <outlet property="pinImageView" destination="Ckt-hE-ARL" id="cGT-lN-gDX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
