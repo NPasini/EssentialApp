@@ -18,8 +18,7 @@ let package = Package(
     targets: [
         .target(
             name: "EssentialFeed",
-            dependencies: [],
-            resources: [.process("Resources")]),
+            dependencies: []),
         .target(
             name: "EssentialFeediOS",
             dependencies: ["EssentialFeediOSMVC", "EssentialFeediOSMVVM", "EssentialFeediOSMVP"]),
@@ -34,8 +33,7 @@ let package = Package(
             dependencies: ["EssentialFeed", "iOSUtilities"]),
         .target(
             name: "iOSUtilities",
-            dependencies: [],
-            resources: [.process("Resources")]),
+            dependencies: []),
         .target(
             name: "TestUtilities",
             dependencies: ["EssentialFeed", "iOSUtilities"]),

@@ -8,5 +8,6 @@
 import UIKit
 
 public extension UIImage {
+
     static var pin: UIImage { UIImage(named: #function, in: Bundle.module, compatibleWith: nil)! }
 }
