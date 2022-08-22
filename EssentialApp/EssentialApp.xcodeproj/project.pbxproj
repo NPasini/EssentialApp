@@ -21,6 +21,7 @@
 		A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */; };
 		A8E7934B28B41A0900BA2B2C /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */; };
 		A8E7934D28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934C28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift */; };
+		A8E7934F28B41D3E00BA2B2C /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934E28B41D3E00BA2B2C /* FeedImageDataLoaderWithFallbackCompositeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		A8E7934C28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackComposite.swift; sourceTree = "<group>"; };
+		A8E7934E28B41D3E00BA2B2C /* FeedImageDataLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		A8AC00D728A297BA005E84BE /* EssentialAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				A8E7934E28B41D3E00BA2B2C /* FeedImageDataLoaderWithFallbackCompositeTests.swift */,
 				A8E7934328B4101000BA2B2C /* FeedLoaderWithFallbackCompositeTests.swift */,
 				A8E7934728B419D400BA2B2C /* Utilities */,
 			);
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8E7934F28B41D3E00BA2B2C /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
 				A8E7934428B4101000BA2B2C /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				A8E7934B28B41A0900BA2B2C /* SharedTestHelpers.swift in Sources */,
