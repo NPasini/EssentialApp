@@ -12,10 +12,7 @@ let package = Package(
             targets: ["EssentialFeed"]),
         .library(
             name: "EssentialFeediOS",
-            targets: ["EssentialFeediOS"]),
-        .library(
-            name: "TestUtilities",
-            targets: ["TestUtilities"]),
+            targets: ["EssentialFeediOS"])
     ],
     dependencies: [],
     targets: [
