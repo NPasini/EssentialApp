@@ -20,6 +20,7 @@
 		A8E7934428B4101000BA2B2C /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934328B4101000BA2B2C /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */; };
 		A8E7934B28B41A0900BA2B2C /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */; };
+		A8E7934D28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934C28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A8E7934328B4101000BA2B2C /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 		A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		A8E7934C28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackComposite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				A8AC00CF28A297BA005E84BE /* Info.plist */,
 				A8AC00C128A297B9005E84BE /* AppDelegate.swift */,
+				A8E7934C28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift */,
 				A8AC00C328A297B9005E84BE /* SceneDelegate.swift */,
 				A8AC00C528A297B9005E84BE /* ViewController.swift */,
 				A8AC00CA28A297BA005E84BE /* Assets.xcassets */,
@@ -290,6 +293,7 @@
 			files = (
 				A8AC00C628A297B9005E84BE /* ViewController.swift in Sources */,
 				A8AC00C228A297B9005E84BE /* AppDelegate.swift in Sources */,
+				A8E7934D28B41C6D00BA2B2C /* FeedLoaderWithFallbackComposite.swift in Sources */,
 				A8AC00C428A297B9005E84BE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
