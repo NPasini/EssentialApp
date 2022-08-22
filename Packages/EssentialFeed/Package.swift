@@ -13,6 +13,9 @@ let package = Package(
         .library(
             name: "EssentialFeediOS",
             targets: ["EssentialFeediOS"]),
+        .library(
+            name: "TestUtilities",
+            targets: ["TestUtilities"]),
     ],
     dependencies: [],
     targets: [
