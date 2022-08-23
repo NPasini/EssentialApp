@@ -8,14 +8,18 @@
 import Foundation
 import EssentialFeed
 
-public func anyNSError() -> NSError {
+func anyNSError() -> NSError {
     NSError(domain: "test", code: 0)
 }
 
-public func anyURL() -> URL {
+func anyURL() -> URL {
     URL(string: "https://any-url.com")!
 }
 
-public func anyData() -> Data {
+func anyData() -> Data {
     Data("any data".utf8)
+}
+
+func uniqueFeed() -> [FeedImage] {
+    [FeedImage(id: UUID(), url: anyURL(), location: "any", description: "any")]
 }
