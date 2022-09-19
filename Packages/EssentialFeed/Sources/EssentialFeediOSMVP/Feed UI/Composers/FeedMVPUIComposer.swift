@@ -34,7 +34,7 @@ public enum FeedMVPUIComposer {
     static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> FeedViewController {
         let storyboard = UIStoryboard(name: "Feed", bundle: .module)
         let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
-        feedController.title = FeedPresenter.title
+        feedController.title = title
         feedController.delegate = delegate
         return feedController
     }

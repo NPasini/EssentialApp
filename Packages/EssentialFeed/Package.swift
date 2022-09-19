@@ -18,7 +18,7 @@ let package = Package(
     targets: [
         .target(
             name: "EssentialFeed",
-            dependencies: []),
+            dependencies: ["iOSUtilities"]),
         .target(
             name: "EssentialFeediOS",
             dependencies: ["EssentialFeediOSMVC", "EssentialFeediOSMVVM", "EssentialFeediOSMVP"]),
