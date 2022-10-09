@@ -79,7 +79,7 @@ class CacheFeedImageDataUseCaseTests: XCTestCase {
             case (.success, .success):
                 break
 
-            case (.failure(let receivedError), .failure(let expectedError)):
+            case (.failure(let receivedError as LocalFeedImageDataLoader.SaveError), .failure(let expectedError as LocalFeedImageDataLoader.SaveError)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
 
             default:
