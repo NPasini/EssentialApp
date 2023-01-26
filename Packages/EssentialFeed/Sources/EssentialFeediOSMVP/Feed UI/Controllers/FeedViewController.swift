@@ -75,7 +75,7 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
 
     private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
-        return tableModel[indexPath.row]
+        tableModel[indexPath.row]
     }
 
     private func cancelCellControllerLoad(forRowAt indexPath: IndexPath) {
