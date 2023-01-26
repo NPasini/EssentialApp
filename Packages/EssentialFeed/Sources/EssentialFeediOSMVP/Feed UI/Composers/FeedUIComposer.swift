@@ -1,5 +1,5 @@
 //
-//  FeedMVPUIComposer.swift
+//  FeedUIComposer.swift
 //  
 //
 //  Created by Nicolò Pasini on 17/07/22.
@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 import EssentialFeed
 
-public enum FeedMVPUIComposer {
+public enum FeedUIComposer {
 
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition

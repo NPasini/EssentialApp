@@ -12,16 +12,13 @@ let package = Package(
             targets: ["EssentialFeed"]),
         .library(
             name: "EssentialFeediOS",
-            targets: ["EssentialFeediOS"])
+            targets: ["EssentialFeediOSMVP"])
     ],
     dependencies: [],
     targets: [
         .target(
             name: "EssentialFeed",
             dependencies: ["iOSUtilities"]),
-        .target(
-            name: "EssentialFeediOS",
-            dependencies: ["EssentialFeediOSMVC", "EssentialFeediOSMVVM", "EssentialFeediOSMVP"]),
         .target(
             name: "EssentialFeediOSMVC",
             dependencies: ["EssentialFeed", "iOSUtilities"]),
@@ -42,7 +39,7 @@ let package = Package(
             dependencies: ["EssentialFeed", "TestUtilities"]),
         .testTarget(
             name: "EssentialFeediOSTests",
-            dependencies: ["EssentialFeediOS", "TestUtilities"]),
+            dependencies: ["EssentialFeediOSMVP", "TestUtilities"]),
         .testTarget(
             name: "EssentialFeedAPIEndToEndTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),
