@@ -91,17 +91,6 @@
             testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EssentialFeediOSTests"
-               BuildableName = "EssentialFeediOSTests"
-               BlueprintName = "EssentialFeediOSTests"
-               ReferencedContainer = "container:../Packages/EssentialFeed">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "A8AC00D328A297BA005E84BE"
                BuildableName = "EssentialAppTests.xctest"
                BlueprintName = "EssentialAppTests"
