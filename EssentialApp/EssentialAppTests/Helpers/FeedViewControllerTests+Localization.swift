@@ -6,8 +6,6 @@
 //
 
 import XCTest
-import Foundation
-import iOSUtilities
 
 extension FeedUIIntegrationTests {
 

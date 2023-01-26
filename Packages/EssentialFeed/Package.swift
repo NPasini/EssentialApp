@@ -38,9 +38,6 @@ let package = Package(
             name: "EssentialFeedTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),
         .testTarget(
-            name: "EssentialFeediOSTests",
-            dependencies: ["EssentialFeediOSMVP", "TestUtilities"]),
-        .testTarget(
             name: "EssentialFeedAPIEndToEndTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),
         .testTarget(
