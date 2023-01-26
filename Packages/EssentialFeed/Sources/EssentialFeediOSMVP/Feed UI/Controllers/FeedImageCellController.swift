@@ -9,17 +9,17 @@ import UIKit
 import iOSUtilities
 import EssentialFeed
 
-protocol FeedImageCellControllerDelegate {
+public protocol FeedImageCellControllerDelegate {
     func didRequestImage()
     func didCancelImageRequest()
 }
 
-final class FeedImageCellController: FeedImageView {
+public final class FeedImageCellController: FeedImageView {
 
     private var cell: FeedImageCell?
     private let delegate: FeedImageCellControllerDelegate
 
-    init(delegate: FeedImageCellControllerDelegate) {
+    public init(delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
     }
 
@@ -38,7 +38,7 @@ final class FeedImageCellController: FeedImageView {
         delegate.didCancelImageRequest()
     }
 
-    func display(_ viewModel: FeedImageViewModel<UIImage>) {
+    public func display(_ viewModel: FeedImageViewModel<UIImage>) {
         cell?.onRetry = delegate.didRequestImage
         cell?.locationLabel.text = viewModel.location
         cell?.descriptionLabel.text = viewModel.description

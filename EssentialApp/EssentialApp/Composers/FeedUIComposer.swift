@@ -6,12 +6,13 @@
 //
 
 import UIKit
-import Foundation
+import iOSUtilities
 import EssentialFeed
+import EssentialFeediOSMVP
 
-public enum FeedUIComposer {
+enum FeedUIComposer {
 
-    public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
+    static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
         let feedController = makeWith(
@@ -31,8 +32,8 @@ public enum FeedUIComposer {
         return feedController
     }
 
-    static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> FeedViewController {
-        let storyboard = UIStoryboard(name: "Feed", bundle: .module)
+    private static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> FeedViewController {
+        let storyboard = UIStoryboard(name: "Feed", bundle: EssentialFeediOSMVPPackageBundle)
         let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
         feedController.title = title
         feedController.delegate = delegate

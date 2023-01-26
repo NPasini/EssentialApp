@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "EssentialFeed",
-            targets: ["EssentialFeed"]),
+            targets: ["EssentialFeed", "iOSUtilities"]),
         .library(
             name: "EssentialFeediOS",
             targets: ["EssentialFeediOSMVP"])
