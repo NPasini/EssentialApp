@@ -28,6 +28,7 @@
 		74E1E6042982B7A100D2F52E /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E6032982B7A100D2F52E /* FeedAcceptanceTests.swift */; };
 		74E1E6062982BFF500D2F52E /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E6052982BFF500D2F52E /* HTTPClientStub.swift */; };
 		74E1E6082982C04000D2F52E /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E6072982C04000D2F52E /* InMemoryFeedStore.swift */; };
+		74E1E60A2983340400D2F52E /* UIView+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E6092983340400D2F52E /* UIView+TestHelpers.swift */; };
 		A892627428D91A2A00DE82B8 /* FeedImageDataLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892627328D91A2A00DE82B8 /* FeedImageDataLoaderSpy.swift */; };
 		A892627628D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892627528D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift */; };
 		A892627828D9202B00DE82B8 /* FeedImageDataLoaderCacheDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892627728D9202B00DE82B8 /* FeedImageDataLoaderCacheDecorator.swift */; };
@@ -84,6 +85,7 @@
 		74E1E6032982B7A100D2F52E /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 		74E1E6052982BFF500D2F52E /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
 		74E1E6072982C04000D2F52E /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
+		74E1E6092983340400D2F52E /* UIView+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TestHelpers.swift"; sourceTree = "<group>"; };
 		A892627328D91A2A00DE82B8 /* FeedImageDataLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoaderSpy.swift; sourceTree = "<group>"; };
 		A892627528D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedImageDataLoader.swift"; sourceTree = "<group>"; };
 		A892627728D9202B00DE82B8 /* FeedImageDataLoaderCacheDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoaderCacheDecorator.swift; sourceTree = "<group>"; };
@@ -221,16 +223,17 @@
 				74E1E5F12982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift */,
 				74E1E5EE2982ADE600D2F52E /* FeedViewControllerTests+Localization.swift */,
 				74E1E6052982BFF500D2F52E /* HTTPClientStub.swift */,
+				74E1E6072982C04000D2F52E /* InMemoryFeedStore.swift */,
 				74E1E5FB2982B14000D2F52E /* LocalizationHelpers.swift */,
 				A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */,
 				74E1E5FC2982B14000D2F52E /* UIButton+Extensions.swift */,
 				74E1E5FA2982B14000D2F52E /* UIControl+Extensions.swift */,
 				74E1E5F92982B14000D2F52E /* UIImage+Extensions.swift */,
 				74E1E5FD2982B14000D2F52E /* UIRefreshControl+Extensions.swift */,
+				74E1E6092983340400D2F52E /* UIView+TestHelpers.swift */,
 				A892627528D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift */,
 				A8E7935628B5272500BA2B2C /* XCTestCase+FeedLoader.swift */,
 				A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */,
-				74E1E6072982C04000D2F52E /* InMemoryFeedStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				74E1E5F22982ADE600D2F52E /* FeedImageCell+TestHelpers.swift in Sources */,
 				A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				A8E7935328B5245700BA2B2C /* FeedLoaderCacheDecoratorTests.swift in Sources */,
+				74E1E60A2983340400D2F52E /* UIView+TestHelpers.swift in Sources */,
 				A8E7935528B5266200BA2B2C /* FeedLoaderStub.swift in Sources */,
 				74E1E5FE2982B14000D2F52E /* UIImage+Extensions.swift in Sources */,
 				74E1E5F52982ADE600D2F52E /* FeedViewController+TestHelpers.swift in Sources */,
