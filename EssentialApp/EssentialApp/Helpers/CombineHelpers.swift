@@ -21,7 +21,9 @@ public extension FeedImageDataLoader {
                 task = loadImageData(from: url, completion: completion)
             }
         }
-        .handleEvents(receiveCancel: task?.cancel)
+        .handleEvents(receiveCancel: {
+            task?.cancel()
+        })
         .eraseToAnyPublisher()
     }
 }
