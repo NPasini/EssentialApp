@@ -25,15 +25,6 @@ final class MainQueueDispatchDecorator<Object> {
     }
 }
 
-extension MainQueueDispatchDecorator: FeedLoader where Object == FeedLoader {
-
-    func load(completion: @escaping (FeedLoader.Result) -> Void) {
-        self.decoratee.load { [weak self] result in
-            self?.dispatch { completion(result) }
-        }
-    }
-}
-
 extension MainQueueDispatchDecorator: FeedImageDataLoader where Object == FeedImageDataLoader {
 
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
