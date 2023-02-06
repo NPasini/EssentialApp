@@ -39,13 +39,13 @@ Given the customer doesn't have connectivity
   And the cache is less than seven days old
  When the customer requests to see the feed
  Then the app should display the latest feed saved
-
+ 
 Given the customer doesn't have connectivity
   And there’s a cached version of the feed
   And the cache is seven days old or more
  When the customer requests to see the feed
  Then the app should display an error message
-
+ 
 Given the customer doesn't have connectivity
   And the cache is empty
  When the customer requests to see the feed
@@ -72,6 +72,29 @@ Given the customer doesn't have connectivity
 #### No connectivity – error course (sad path):
 1. System delivers connectivity error.
 
+---
+
+### Load Feed Image Data From Remote Use Case
+
+#### Data:
+- URL
+
+#### Primary course (happy path):
+1. Execute "Load Image Data" command with above data.
+2. System downloads data from the URL.
+3. System validates downloaded data.
+4. System delivers image data.
+
+#### Cancel course:
+1. System does not deliver image data nor error.
+
+#### Invalid data – error course (sad path):
+1. System delivers invalid data error.
+
+#### No connectivity – error course (sad path):
+1. System delivers connectivity error.
+
+---
 
 ### Load Feed From Cache Use Case
 
@@ -91,6 +114,28 @@ Given the customer doesn't have connectivity
 #### Empty cache course (sad path): 
 1. System delivers no feed images.
 
+---
+
+### Load Feed Image Data From Cache Use Case
+
+#### Data:
+- URL
+
+#### Primary course (happy path):
+1. Execute "Load Image Data" command with above data.
+2. System retrieves data from the cache.
+3. System delivers cached image data.
+
+#### Cancel course:
+1. System does not deliver image data nor error.
+
+#### Retrieval error course (sad path):
+1. System delivers error.
+
+#### Empty cache course (sad path):
+1. System delivers not found error.
+
+---
 
 ### Validate Feed Cache Use Case
 
@@ -105,6 +150,7 @@ Given the customer doesn't have connectivity
 #### Expired cache course (sad path): 
 1. System deletes cache.
 
+---
 
 ### Cache Feed Use Case
 
@@ -125,13 +171,13 @@ Given the customer doesn't have connectivity
 #### Saving error course (sad path):
 1. System delivers error.
 
+---
 
 ## Flowchart
 
 ![Feed Loading Feature](feed_flowchart.png)
 
 ## Architecture
-
 ![Feed Loading Feature](feed_architecture.png)
 
 ## Model Specs
@@ -149,9 +195,7 @@ Given the customer doesn't have connectivity
 
 ```
 GET *url* (TBD)
-
 200 RESPONSE
-
 {
     "items": [
         {
