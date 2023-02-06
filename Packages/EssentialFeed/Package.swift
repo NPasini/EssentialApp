@@ -9,20 +9,16 @@ let package = Package(
     products: [
         .library(
             name: "EssentialFeed",
-            targets: ["EssentialFeed"]),
+            targets: ["EssentialFeed", "iOSUtilities"]),
         .library(
             name: "EssentialFeediOS",
-            targets: ["EssentialFeediOS"]),
+            targets: ["EssentialFeediOSMVP"])
     ],
     dependencies: [],
     targets: [
         .target(
             name: "EssentialFeed",
-            dependencies: [],
-            resources: [.process("Resources")]),
-        .target(
-            name: "EssentialFeediOS",
-            dependencies: ["EssentialFeediOSMVC", "EssentialFeediOSMVVM", "EssentialFeediOSMVP"]),
+            dependencies: ["iOSUtilities"]),
         .target(
             name: "EssentialFeediOSMVC",
             dependencies: ["EssentialFeed", "iOSUtilities"]),
@@ -34,8 +30,7 @@ let package = Package(
             dependencies: ["EssentialFeed", "iOSUtilities"]),
         .target(
             name: "iOSUtilities",
-            dependencies: [],
-            resources: [.process("Resources")]),
+            dependencies: []),
         .target(
             name: "TestUtilities",
             dependencies: ["EssentialFeed", "iOSUtilities"]),
@@ -44,7 +39,7 @@ let package = Package(
             dependencies: ["EssentialFeed", "TestUtilities"]),
         .testTarget(
             name: "EssentialFeediOSTests",
-            dependencies: ["EssentialFeediOS", "TestUtilities"]),
+            dependencies: ["EssentialFeed", "EssentialFeediOSMVP", "TestUtilities", "iOSUtilities"]),
         .testTarget(
             name: "EssentialFeedAPIEndToEndTests",
             dependencies: ["EssentialFeed", "TestUtilities"]),

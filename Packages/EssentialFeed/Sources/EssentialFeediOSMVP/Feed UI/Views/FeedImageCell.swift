@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSUtilities
 
 public final class FeedImageCell: UITableViewCell {
 
@@ -16,9 +17,17 @@ public final class FeedImageCell: UITableViewCell {
     @IBOutlet private(set) public var feedImageContainer: UIView!
     @IBOutlet private(set) public var feedImageRetryButton: UIButton!
 
+    @IBOutlet private(set) var pinImageView: UIImageView!
+
     var onRetry: (() -> Void)?
 
     @IBAction private func retryButtonTapped() {
         onRetry?()
+    }
+
+    override public func awakeFromNib() {
+        super.awakeFromNib()
+
+        pinImageView.image = UIImage.pin
     }
 }
