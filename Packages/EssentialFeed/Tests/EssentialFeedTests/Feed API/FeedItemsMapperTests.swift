@@ -64,8 +64,7 @@ class FeedItemsMapperTests: XCTestCase {
             location: "a location",
             imageURL: URL(string: "https://another-url.com")!
         )
-
-        let items = [item1.model, item2.model]
+        
         let json = makeItemsJson([item1.json, item2.json])
 
         let result = try FeedItemsMapper.map(json, from: HTTPURLResponse(statusCode: 200))
