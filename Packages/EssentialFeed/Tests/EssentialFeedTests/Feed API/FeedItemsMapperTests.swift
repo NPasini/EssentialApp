@@ -22,7 +22,7 @@ class FeedItemsMapperTests: XCTestCase {
         }
     }
 
-    func test_map_throwsErrorOn200HTTPResponseWithInvalidJson() throws {
+    func test_map_throwsErrorOn200HTTPResponseWithInvalidJson() {
         let invalidJson = Data("invalid json".utf8)
 
         XCTAssertThrowsError(
@@ -30,7 +30,7 @@ class FeedItemsMapperTests: XCTestCase {
         )
     }
 
-    func test_map_throwsErrorOn200HTTPResponseWithPartiallyValidJSONItems() throws {
+    func test_map_throwsErrorOn200HTTPResponseWithPartiallyValidJSONItems() {
         let validItem = makeItem(
             id: UUID(),
             imageURL: URL(string: "http://another-url.com")!
