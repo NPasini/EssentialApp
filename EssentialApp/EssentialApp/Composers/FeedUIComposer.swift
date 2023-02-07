@@ -14,7 +14,7 @@ import EssentialFeediOSMVP
 public enum FeedUIComposer {
 
     public static func feedComposedWith(
-        feedLoader: @escaping () -> FeedLoader.Publisher,
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
         imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher
     ) -> FeedViewController {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition

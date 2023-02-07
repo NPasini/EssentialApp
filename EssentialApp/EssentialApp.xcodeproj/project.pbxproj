@@ -39,8 +39,6 @@
 		A8AC00F528A29897005E84BE /* EssentialFeediOS in Frameworks */ = {isa = PBXBuildFile; productRef = A8AC00F428A29897005E84BE /* EssentialFeediOS */; };
 		A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */; };
 		A8E7934B28B41A0900BA2B2C /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */; };
-		A8E7935528B5266200BA2B2C /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7935428B5266200BA2B2C /* FeedLoaderStub.swift */; };
-		A8E7935728B5272500BA2B2C /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E7935628B5272500BA2B2C /* XCTestCase+FeedLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +85,6 @@
 		A8AC00D428A297BA005E84BE /* EssentialAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		A8E7934A28B41A0900BA2B2C /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
-		A8E7935428B5266200BA2B2C /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
-		A8E7935628B5272500BA2B2C /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +191,6 @@
 			children = (
 				74E1E5ED2982ADE600D2F52E /* FeedImageCell+TestHelpers.swift */,
 				A892627328D91A2A00DE82B8 /* FeedImageDataLoaderSpy.swift */,
-				A8E7935428B5266200BA2B2C /* FeedLoaderStub.swift */,
 				74E1E5EF2982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift */,
 				74E1E5F02982ADE600D2F52E /* FeedViewController+TestHelpers.swift */,
 				74E1E5F12982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift */,
@@ -210,7 +205,6 @@
 				74E1E5FD2982B14000D2F52E /* UIRefreshControl+Extensions.swift */,
 				74E1E6092983340400D2F52E /* UIView+TestHelpers.swift */,
 				A892627528D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift */,
-				A8E7935628B5272500BA2B2C /* XCTestCase+FeedLoader.swift */,
 				A8E7934828B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
@@ -337,7 +331,6 @@
 			files = (
 				74E1E5F32982ADE600D2F52E /* FeedViewControllerTests+Localization.swift in Sources */,
 				74E1E6012982B14000D2F52E /* UIButton+Extensions.swift in Sources */,
-				A8E7935728B5272500BA2B2C /* XCTestCase+FeedLoader.swift in Sources */,
 				74E1E6002982B14000D2F52E /* LocalizationHelpers.swift in Sources */,
 				A892627628D91B0C00DE82B8 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
 				74E1E6022982B14000D2F52E /* UIRefreshControl+Extensions.swift in Sources */,
@@ -352,7 +345,6 @@
 				74E1E5F22982ADE600D2F52E /* FeedImageCell+TestHelpers.swift in Sources */,
 				A8E7934928B419E000BA2B2C /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				74E1E60A2983340400D2F52E /* UIView+TestHelpers.swift in Sources */,
-				A8E7935528B5266200BA2B2C /* FeedLoaderStub.swift in Sources */,
 				74E1E5FE2982B14000D2F52E /* UIImage+Extensions.swift in Sources */,
 				74E1E5F52982ADE600D2F52E /* FeedViewController+TestHelpers.swift in Sources */,
 				A8E7934B28B41A0900BA2B2C /* SharedTestHelpers.swift in Sources */,
