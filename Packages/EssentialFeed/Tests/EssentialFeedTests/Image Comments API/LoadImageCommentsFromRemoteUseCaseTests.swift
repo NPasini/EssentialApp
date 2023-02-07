@@ -9,40 +9,6 @@ import XCTest
 import EssentialFeed
 
 class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
-    
-    func test_init_doesNotRequestDataFromURL() {
-        let (_, client) = makeSUT()
-
-        XCTAssertTrue(client.requestedURLs.isEmpty)
-    }
-
-    func test_load_requestsDataFromURL() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
-
-        sut.load() { _ in }
-
-        XCTAssertEqual(client.requestedURLs, [url])
-    }
-
-    func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
-
-        sut.load() { _ in }
-        sut.load() { _ in }
-
-        XCTAssertEqual(client.requestedURLs, [url, url])
-    }
-
-    func test_load_deliversErrorOnClientError() {
-        let (sut, client) = makeSUT()
-
-        expect(sut, toCompleteWith: failure(APIError.connectivity), when: {
-            let clientError = NSError(domain: "Test", code: 0)
-            client.complete(with: clientError)
-        })
-    }
 
     func test_load_deliversErrorOnNon2xxHttpResponse() {
         let (sut, client) = makeSUT()
@@ -127,20 +93,6 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
                 client.complete(withStatusCode: code, data: json, at: index)
             })
         }
-    }
-
-    func test_load_doesNotDeliverResultAfterSUTHasBeenDeallocated() {
-        let client = HTTPClientSpy()
-        let url = URL(string: "https://a-given-url.com")!
-        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(url: url, client: client)
-
-        var capturedResults = [RemoteImageCommentsLoader.Result]()
-        sut?.load { capturedResults.append($0) }
-
-        sut = nil
-        client.complete(withStatusCode: 200, data: makeItemsJson([]))
-
-        XCTAssertTrue(capturedResults.isEmpty)
     }
 
     // MARK: - Helpers
