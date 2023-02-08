@@ -26,6 +26,20 @@ public extension Localized {
 }
 
 public extension Localized {
+    enum ImageComments {
+        static var table: String { "ImageComments" }
+
+        public static var title: String {
+            NSLocalizedString(
+                "IMAGE_COMMENTS_VIEW_TITLE",
+                tableName: table,
+                bundle: bundle,
+                comment: "Title for the image comments view")
+        }
+    }
+}
+
+public extension Localized {
     enum Shared {
         static var table: String { "Shared" }
 
