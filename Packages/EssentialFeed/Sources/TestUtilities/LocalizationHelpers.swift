@@ -19,7 +19,24 @@ public func localized(_ key: String, table: String, file: StaticString = #filePa
 
 public typealias LocalizedBundle = (bundle: Bundle, localization: String)
 
-public func allLocalizationBundles(in bundle: Bundle, file: StaticString = #filePath, line: UInt = #line) -> [LocalizedBundle] {
+public func assertLocalizedKeyAndValueExists(in presentationBundle: Bundle, _ table: String, file: StaticString = #filePath, line: UInt = #line) {
+    let localizationBundles = allLocalizationBundles(in: presentationBundle, file: file, line: line)
+    let localizedStringKeys = allLocalizedStringKeys(in: localizationBundles, table: table, file: file, line: line)
+    
+    localizationBundles.forEach { (bundle, localization) in
+        localizedStringKeys.forEach { key in
+            let localizedString = bundle.localizedString(forKey: key, value: nil, table: table)
+            
+            if localizedString == key {
+                let language = Locale.current.localizedString(forLanguageCode: localization) ?? ""
+                
+                XCTFail("Missing \(language) (\(localization)) localized string for key: '\(key)' in table: '\(table)'")
+            }
+        }
+    }
+}
+
+fileprivate func allLocalizationBundles(in bundle: Bundle, file: StaticString = #filePath, line: UInt = #line) -> [LocalizedBundle] {
     return bundle.localizations.compactMap { localization in
         guard
             let path = bundle.path(forResource: localization, ofType: "lproj"),
@@ -33,7 +50,7 @@ public func allLocalizationBundles(in bundle: Bundle, file: StaticString = #file
     }
 }
 
-public func allLocalizedStringKeys(in bundles: [LocalizedBundle], table: String, file: StaticString = #filePath, line: UInt = #line) -> Set<String> {
+fileprivate func allLocalizedStringKeys(in bundles: [LocalizedBundle], table: String, file: StaticString = #filePath, line: UInt = #line) -> Set<String> {
     return bundles.reduce([]) { (acc, current) in
         guard
             let path = current.bundle.path(forResource: table, ofType: "strings"),
