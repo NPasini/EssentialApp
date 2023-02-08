@@ -9,9 +9,6 @@ import Foundation
 import iOSUtilities
 
 public final class LoadResourcePresenter {
-    
-    public static var title: String { Localized.Feed.title }
-
     private let feedView: FeedView
     private let errorView: FeedErrorView
     private let loadingView: FeedLoadingView
