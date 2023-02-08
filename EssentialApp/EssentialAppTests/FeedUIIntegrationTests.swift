@@ -308,7 +308,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         XCTAssertNil(sut.errorMessage)
 
         loader.completeFeedLoadingWithError()
-        XCTAssertEqual(sut.errorMessage, localized("FEED_VIEW_CONNECTION_ERROR"))
+        XCTAssertEqual(sut.errorMessage, localized("GENERIC_CONNECTION_ERROR"))
 
         sut.simulateUserInitiatedFeedReload()
         XCTAssertNil(sut.errorMessage)
@@ -321,7 +321,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         XCTAssertNil(sut.errorMessage)
 
         loader.completeFeedLoadingWithError()
-        XCTAssertEqual(sut.errorMessage, localized("FEED_VIEW_CONNECTION_ERROR"))
+        XCTAssertEqual(sut.errorMessage, localized("GENERIC_CONNECTION_ERROR"))
 
         sut.simulateUserTapOnErrorMessage()
         XCTAssertNil(sut.errorMessage)
