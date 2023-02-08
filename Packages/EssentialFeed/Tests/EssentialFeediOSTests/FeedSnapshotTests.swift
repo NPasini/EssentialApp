@@ -109,20 +109,27 @@ private extension FeedViewController {
 }
 
 private class ImageStub: FeedImageCellControllerDelegate {
-    let viewModel: FeedImageViewModel<UIImage>
+    let image: UIImage?
+    let viewModel: FeedImageViewModel
     weak var controller: FeedImageCellController?
     
     init(description: String?, location: String?, image: UIImage?) {
         viewModel = FeedImageViewModel(
-            image: image,
-            isLoading: false,
             location: location,
-            shouldRetry: image == nil,
-            description: description)
+            description: description
+        )
+        self.image = image
     }
     
     func didRequestImage() {
-        controller?.display(viewModel)
+        controller?.display(ResourceLoadingViewModel(isLoading: false))
+        
+        if let image = image {
+            controller?.display(image)
+            controller?.display(ResourceErrorViewModel(errorMessage: .none))
+        } else {
+            controller?.display(ResourceErrorViewModel(errorMessage: "any"))
+        }
     }
     
     func didCancelImageRequest() {}
