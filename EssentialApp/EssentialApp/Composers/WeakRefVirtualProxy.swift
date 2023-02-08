@@ -17,9 +17,9 @@ final class WeakRefVirtualProxy<Object: AnyObject> {
     }
 }
 
-extension WeakRefVirtualProxy: FeedLoadingView where Object: FeedLoadingView {
+extension WeakRefVirtualProxy: ResourceLoadingView where Object: ResourceLoadingView {
 
-    func display(_ viewModel: FeedLoadingViewModel) {
+    func display(_ viewModel: ResourceLoadingViewModel) {
         object?.display(viewModel)
     }
 }
