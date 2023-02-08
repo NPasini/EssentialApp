@@ -42,6 +42,6 @@ public final class LoadResourcePresenter<Resource, View: ResourceView> {
 
     public func didFinishLoading(with error: Error) {
         loadingView.display(FeedLoadingViewModel(isLoading: false))
-        errorView.display(FeedErrorViewModel(errorMessage: Localized.Feed.loadError))
+        errorView.display(FeedErrorViewModel(errorMessage: Localized.Shared.loadError))
     }
 }

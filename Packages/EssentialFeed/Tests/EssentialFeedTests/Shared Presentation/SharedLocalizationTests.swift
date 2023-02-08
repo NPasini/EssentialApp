@@ -1,18 +1,18 @@
 //
-//  FeedLocalizationTests.swift
+//  SharedLocalizationTests.swift
 //  
 //
-//  Created by Nicolò Pasini on 23/07/22.
+//  Created by nicolo.pasini on 08/02/23.
 //
 
 import XCTest
 import iOSUtilities
 import TestUtilities
 
-final class FeedLocalizationTests: XCTestCase {
-
+class SharedLocalizationTests: XCTestCase {
+    
     func test_localizedStrings_haveKeysAndValuesForAllSupportedLocalizations() {
-        let table = "Feed"
+        let table = "Shared"
         let presentationBundle = iOSUtilitiesPackageBundle
         let localizationBundles = allLocalizationBundles(in: presentationBundle)
         let localizedStringKeys = allLocalizedStringKeys(in: localizationBundles, table: table)

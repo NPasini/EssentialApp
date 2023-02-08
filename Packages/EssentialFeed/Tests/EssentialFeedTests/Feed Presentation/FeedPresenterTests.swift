@@ -12,7 +12,7 @@ import TestUtilities
 class FeedPresenterTests: XCTestCase {
 
     func test_title_isLocalized() {
-        XCTAssertEqual(FeedPresenter.title, localized("FEED_VIEW_TITLE"))
+        XCTAssertEqual(FeedPresenter.title, localized("FEED_VIEW_TITLE", table: "Feed"))
     }
 
     func test_init_doesNotSendMessagesToView() {
@@ -50,7 +50,7 @@ class FeedPresenterTests: XCTestCase {
         sut.didFinishLoadingFeed(with: anyNSError())
 
         XCTAssertEqual(view.messages, [
-            .display(errorMessage: localized("GENERIC_CONNECTION_ERROR")),
+            .display(errorMessage: localized("GENERIC_CONNECTION_ERROR", table: "Shared")),
             .display(isLoading: false)
         ])
     }

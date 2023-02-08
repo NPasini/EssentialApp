@@ -6,7 +6,15 @@
 //
 
 import XCTest
+import iOSUtilities
 
 extension FeedUIIntegrationTests {
-
+    
+    var loadError: String {
+        Localized.Shared.loadError
+    }
+    
+    var feedTitle: String {
+        Localized.Feed.title
+    }
 }

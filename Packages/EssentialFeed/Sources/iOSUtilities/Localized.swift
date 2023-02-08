@@ -22,13 +22,19 @@ public extension Localized {
                 bundle: bundle,
                 comment: "Title for the feed view")
         }
+    }
+}
+
+public extension Localized {
+    enum Shared {
+        static var table: String { "Shared" }
 
         public static var loadError: String {
             NSLocalizedString(
                 "GENERIC_CONNECTION_ERROR",
                 tableName: table,
                 bundle: bundle,
-                comment: "Error message displayed when we can't load the image feed from the server")
+                comment: "Error message displayed when we can't load a resource from the server")
         }
     }
 }
