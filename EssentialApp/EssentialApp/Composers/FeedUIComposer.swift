@@ -22,10 +22,8 @@ public enum FeedUIComposer {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition
         let presentationAdapter = FeedPresentationAdapter(loader: feedLoader)
         
-        let feedController = makeWith(
-            title: FeedPresenter.title,
-            delegate: presentationAdapter
-        )
+        let feedController = makeWith(title: FeedPresenter.title)
+        feedController.onRefresh = presentationAdapter.loadResource
 
         presentationAdapter.presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(
@@ -40,11 +38,10 @@ public enum FeedUIComposer {
         return feedController
     }
 
-    private static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> ListViewController {
+    private static func makeWith(title: String) -> ListViewController {
         let storyboard = UIStoryboard(name: "Feed", bundle: EssentialFeediOSMVPPackageBundle)
         let feedController = storyboard.instantiateInitialViewController() as! ListViewController
         feedController.title = title
-        feedController.delegate = delegate
         return feedController
     }
 }
