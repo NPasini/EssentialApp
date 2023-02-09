@@ -21,7 +21,7 @@ extension ListViewController {
     }
 
     var errorMessage: String? {
-        errorView?.message
+        errorView.message
     }
 
     func simulateUserInitiatedFeedReload() {
@@ -67,8 +67,8 @@ extension ListViewController {
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
 
-    func simulateUserTapOnErrorMessage() {
-        errorView?.button.simulateTap()
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
     }
     
     func renderedFeedImageData(at index: Int) -> Data? {
