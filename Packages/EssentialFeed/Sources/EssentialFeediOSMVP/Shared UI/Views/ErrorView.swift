@@ -52,7 +52,7 @@ public final class ErrorView: UIButton {
         configuration.background.backgroundColor = .errorBackgroundColor
         configuration.background.cornerRadius = 0
         self.configuration = configuration
-        
+    
         addTarget(self, action: #selector(hideMessageAnimated), for: .touchUpInside)
         
         hideMessage()
