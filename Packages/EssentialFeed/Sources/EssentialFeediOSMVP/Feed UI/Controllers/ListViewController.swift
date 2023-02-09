@@ -1,5 +1,5 @@
 //
-//  FeedViewController.swift
+//  ListViewController.swift
 //
 //
 //  Created by Nicolò Pasini on 11/07/22.
@@ -19,7 +19,7 @@ public protocol CellController {
     func view(in tableView: UITableView) -> UITableViewCell
 }
 
-public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceLoadingView, ResourceErrorView {
+public final class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceLoadingView, ResourceErrorView {
 
     @IBOutlet public private(set) var errorView: ErrorView?
 
