@@ -35,10 +35,16 @@ extension ListViewController {
 
 extension ListViewController {
     
-    var feedImageSection: Int { 0 }
+    var feedImagesSection: Int { 0 }
     
     var numberOfRenderedFeedImageViews: Int {
-        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImageSection)
+        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImagesSection)
+    }
+    
+    func simulateTapOnFeedImage(at row: Int) {
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: feedImagesSection)
+        delegate?.tableView?(tableView, didSelectRowAt: index)
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
@@ -47,7 +53,7 @@ extension ListViewController {
         }
         
         let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: feedImagesSection)
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
@@ -61,14 +67,14 @@ extension ListViewController {
         let view = simulateFeedImageViewVisible(at: row)
         
         let dl = tableView.delegate
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: feedImagesSection)
         dl?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
         return view
     }
     
     func simulateFeedImageViewNearVisible(at row: Int = 0) {
         let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: feedImagesSection)
         ds?.tableView(tableView, prefetchRowsAt: [index])
     }
     
@@ -76,7 +82,7 @@ extension ListViewController {
         simulateFeedImageViewNearVisible(at: row)
         
         let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: feedImagesSection)
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
@@ -89,7 +95,7 @@ extension ListViewController {
         let view = simulateFeedImageViewNotVisible(at: row)
         
         let delegate = tableView.delegate
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: feedImagesSection)
         delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
         
         return view
