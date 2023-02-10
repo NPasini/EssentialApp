@@ -17,11 +17,11 @@ public protocol FeedImageCellControllerDelegate {
 public final class FeedImageCellController: NSObject {
     
     public typealias ResourceViewModel = UIImage
-
+    
     private var cell: FeedImageCell?
     private let viewModel: FeedImageViewModel
     private let delegate: FeedImageCellControllerDelegate
-
+    
     public init(viewModel: FeedImageViewModel, delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
         self.viewModel = viewModel
@@ -40,11 +40,17 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
         cell?.locationLabel.text = viewModel.location
         cell?.descriptionLabel.text = viewModel.description
         cell?.locationContainer.isHidden = !viewModel.hasLocation
+        
         cell?.onRetry = { [weak self] in
             self?.delegate.didRequestImage()
         }
         delegate.didRequestImage()
         return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cell = cell as? FeedImageCell
+        delegate.didRequestImage()
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
