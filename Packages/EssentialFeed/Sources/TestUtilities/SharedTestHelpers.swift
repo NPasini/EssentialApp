@@ -29,3 +29,14 @@ public func uniqueImageFeed() -> (models: [FeedImage], locals: [LocalFeedImage])
     let locals = models.map { LocalFeedImage(id: $0.id, url: $0.url, location: $0.location, description: $0.description) }
     return (models, locals)
 }
+
+public func makeItemsJson(_ items: [[String: Any]]) -> Data {
+    let json = ["items": items]
+    return try! JSONSerialization.data(withJSONObject: json)
+}
+
+public extension HTTPURLResponse {
+    convenience init(statusCode: Int) {
+        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
+    }
+}

@@ -20,6 +20,7 @@ public final class FeedImageCell: UITableViewCell {
     @IBOutlet private(set) var pinImageView: UIImageView!
 
     var onRetry: (() -> Void)?
+    var onReuse: (() -> Void)?
 
     @IBAction private func retryButtonTapped() {
         onRetry?()
@@ -29,5 +30,11 @@ public final class FeedImageCell: UITableViewCell {
         super.awakeFromNib()
 
         pinImageView.image = UIImage.pin
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+
+        onReuse?()
     }
 }

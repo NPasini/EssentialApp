@@ -13,35 +13,37 @@ import EssentialFeediOSMVP
 
 public enum FeedUIComposer {
 
+    private typealias FeedPresentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>
+    
     public static func feedComposedWith(
-        feedLoader: @escaping () -> FeedLoader.Publisher,
-        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher
-    ) -> FeedViewController {
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void = { _ in }
+    ) -> ListViewController {
         // In order to resolve circular dependencies we need to do property injection instead of constructor injection, the PresentationAdapter is a good candidate since is part of the composition
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
+        let presentationAdapter = FeedPresentationAdapter(loader: feedLoader)
         
-        let feedController = makeWith(
-            title: FeedPresenter.title,
-            delegate: presentationAdapter
-        )
+        let feedController = makeWith(title: FeedPresenter.title)
+        feedController.onRefresh = presentationAdapter.loadResource
 
-        presentationAdapter.presenter = FeedPresenter(
-            feedView: FeedViewAdapter(
+        presentationAdapter.presenter = LoadResourcePresenter(
+            resourceView: FeedViewAdapter(
                 controller: feedController,
-                imageLoader: imageLoader
+                imageLoader: imageLoader,
+                selection: selection
             ),
             loadingView: WeakRefVirtualProxy(feedController),
-            errorView: WeakRefVirtualProxy(feedController)
+            errorView: WeakRefVirtualProxy(feedController),
+            mapper: FeedPresenter.map
         )
 
         return feedController
     }
 
-    private static func makeWith(title: String, delegate: FeedViewControllerDelegate) -> FeedViewController {
+    private static func makeWith(title: String) -> ListViewController {
         let storyboard = UIStoryboard(name: "Feed", bundle: EssentialFeediOSMVPPackageBundle)
-        let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
+        let feedController = storyboard.instantiateInitialViewController() as! ListViewController
         feedController.title = title
-        feedController.delegate = delegate
         return feedController
     }
 }

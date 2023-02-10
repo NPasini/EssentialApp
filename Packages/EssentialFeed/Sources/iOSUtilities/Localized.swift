@@ -22,13 +22,33 @@ public extension Localized {
                 bundle: bundle,
                 comment: "Title for the feed view")
         }
+    }
+}
+
+public extension Localized {
+    enum ImageComments {
+        static var table: String { "ImageComments" }
+
+        public static var title: String {
+            NSLocalizedString(
+                "IMAGE_COMMENTS_VIEW_TITLE",
+                tableName: table,
+                bundle: bundle,
+                comment: "Title for the image comments view")
+        }
+    }
+}
+
+public extension Localized {
+    enum Shared {
+        static var table: String { "Shared" }
 
         public static var loadError: String {
             NSLocalizedString(
-                "FEED_VIEW_CONNECTION_ERROR",
+                "GENERIC_CONNECTION_ERROR",
                 tableName: table,
                 bundle: bundle,
-                comment: "Error message displayed when we can't load the image feed from the server")
+                comment: "Error message displayed when we can't load a resource from the server")
         }
     }
 }
