@@ -6,7 +6,20 @@
 //
 
 import Foundation
+import iOSUtilities
 import EssentialFeed
+
+var loadError: String {
+    Localized.Shared.loadError
+}
+
+var feedTitle: String {
+    Localized.Feed.title
+}
+
+var commentsTitle: String {
+    Localized.ImageComments.title
+}
 
 func anyNSError() -> NSError {
     NSError(domain: "test", code: 0)
