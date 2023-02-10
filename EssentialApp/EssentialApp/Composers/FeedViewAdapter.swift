@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Foundation
 import EssentialFeed
 import EssentialFeediOSMVP
 
