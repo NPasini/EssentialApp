@@ -17,4 +17,8 @@ extension FeedUIIntegrationTests {
     var feedTitle: String {
         Localized.Feed.title
     }
+    
+    var commentsTitle: String {
+        Localized.ImageComments.title
+    }
 }

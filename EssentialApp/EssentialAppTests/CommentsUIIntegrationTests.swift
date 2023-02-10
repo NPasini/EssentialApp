@@ -12,12 +12,12 @@ import EssentialFeed
 import EssentialFeediOSMVP
 
 class CommentsUIIntegrationTests: FeedUIIntegrationTests {
-    override func test_feedView_hasTitle() {
+    func test_commentsView_hasTitle() {
         let (sut, _) = makeSUT()
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.title, feedTitle)
+        XCTAssertEqual(sut.title, commentsTitle)
     }
     
     // We have multiple assertions per test beacuse when working with frameworks temporal coupling is dangerous
@@ -123,7 +123,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
         wait(for: [exp], timeout: 1.0)
     }
     
-    override func test_loadFeedCompletion_renderErrorMessageOnFailureUntilFeedRefresh() {
+    override func test_loadFeedCompletion_rendersErrorMessageOnFailureUntilFeedRefresh() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
