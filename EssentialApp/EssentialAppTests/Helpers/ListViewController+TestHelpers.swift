@@ -49,6 +49,7 @@ extension ListViewController {
 extension ListViewController {
     
     var feedImagesSection: Int { 0 }
+    var feedLoadMoreSection: Int { 1 }
     
     var numberOfRenderedFeedImageViews: Int {
         numberOfRows(in: feedImagesSection)
@@ -106,6 +107,15 @@ extension ListViewController {
         delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
         
         return view
+    }
+    
+    func simulateLoadMoreFeedAction() {
+        // Loading when the cell becomes visible
+        guard let view = cell(row: 0, section: feedLoadMoreSection) else { return }
+        
+        let dl = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        dl?.tableView?(tableView, willDisplay: view, forRowAt: index)
     }
 }
 
