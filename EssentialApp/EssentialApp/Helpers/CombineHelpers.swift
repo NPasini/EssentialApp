@@ -9,6 +9,19 @@ import UIKit
 import Combine
 import EssentialFeed
 
+public extension Paginated {
+    
+    var loadMorePublisher: (() -> AnyPublisher<Self, Error>)? {
+        guard let loadMore = loadMore else { return nil }
+        
+        return {
+            Deferred {
+                Future(loadMore)
+            }.eraseToAnyPublisher()
+        }
+    }
+}
+
 public extension HTTPClient {
     
     typealias Publisher = AnyPublisher<(Data, HTTPURLResponse), Error>
@@ -92,7 +105,7 @@ extension Publisher {
 
 extension Publisher {
     func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
-//        receive(on: DispatchQueue.main).eraseToAnyPublisher() Dispatcha asincronamente sulla main queue senz guardare se siamo già su quella queue e quindi, in caso, eseguire istantaneamente
+        //        receive(on: DispatchQueue.main).eraseToAnyPublisher() Dispatcha asincronamente sulla main queue senz guardare se siamo già su quella queue e quindi, in caso, eseguire istantaneamente
         receive(on: DispatchQueue.immediateWhenOnMainQueueScheduler).eraseToAnyPublisher()
     }
 }
@@ -108,7 +121,7 @@ extension DispatchQueue {
         typealias SchedulerOptions = DispatchQueue.SchedulerOptions
         
         static let shared = Self()
-
+        
         private static let value = UInt8.max
         private static let key = DispatchSpecificKey<UInt8>()
         
