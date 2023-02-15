@@ -135,6 +135,10 @@ extension ListViewController {
         numberOfRows(in: imageCommentsSection)
     }
     
+    var loadMoreFeedErrorMessage: String? {
+        loadMoreFeedCell()?.message
+    }
+    
     func commentMessage(at row: Int) -> String? {
         commentView(at: row)?.messageLabel.text
     }
