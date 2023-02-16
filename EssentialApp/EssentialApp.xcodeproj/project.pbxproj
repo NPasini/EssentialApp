@@ -19,7 +19,7 @@
 		74E1E5F22982ADE600D2F52E /* FeedImageCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5ED2982ADE600D2F52E /* FeedImageCell+TestHelpers.swift */; };
 		74E1E5F42982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5EF2982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift */; };
 		74E1E5F52982ADE600D2F52E /* ListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5F02982ADE600D2F52E /* ListViewController+TestHelpers.swift */; };
-		74E1E5F62982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5F12982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift */; };
+		74E1E5F62982ADE600D2F52E /* FeedUIIntegrationTests+LoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5F12982ADE600D2F52E /* FeedUIIntegrationTests+LoaderSpy.swift */; };
 		74E1E5F82982AE2600D2F52E /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5F72982AE2600D2F52E /* FeedUIIntegrationTests.swift */; };
 		74E1E5FE2982B14000D2F52E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5F92982B14000D2F52E /* UIImage+Extensions.swift */; };
 		74E1E5FF2982B14000D2F52E /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1E5FA2982B14000D2F52E /* UIControl+Extensions.swift */; };
@@ -64,7 +64,7 @@
 		74E1E5ED2982ADE600D2F52E /* FeedImageCell+TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedImageCell+TestHelpers.swift"; sourceTree = "<group>"; };
 		74E1E5EF2982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedUIIntegrationTests+Assertions.swift"; sourceTree = "<group>"; };
 		74E1E5F02982ADE600D2F52E /* ListViewController+TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
-		74E1E5F12982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+LoaderSpy.swift"; sourceTree = "<group>"; };
+		74E1E5F12982ADE600D2F52E /* FeedUIIntegrationTests+LoaderSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedUIIntegrationTests+LoaderSpy.swift"; sourceTree = "<group>"; };
 		74E1E5F72982AE2600D2F52E /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
 		74E1E5F92982B14000D2F52E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		74E1E5FA2982B14000D2F52E /* UIControl+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 				74E1E5ED2982ADE600D2F52E /* FeedImageCell+TestHelpers.swift */,
 				A892627328D91A2A00DE82B8 /* FeedImageDataLoaderSpy.swift */,
 				74E1E5EF2982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift */,
-				74E1E5F12982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift */,
+				74E1E5F12982ADE600D2F52E /* FeedUIIntegrationTests+LoaderSpy.swift */,
 				74E1E6052982BFF500D2F52E /* HTTPClientStub.swift */,
 				74E1E6072982C04000D2F52E /* InMemoryFeedStore.swift */,
 				74E1E5F02982ADE600D2F52E /* ListViewController+TestHelpers.swift */,
@@ -336,7 +336,7 @@
 				74E1E6022982B14000D2F52E /* UIRefreshControl+Extensions.swift in Sources */,
 				74E1E6042982B7A100D2F52E /* FeedAcceptanceTests.swift in Sources */,
 				74E1E5F42982ADE600D2F52E /* FeedUIIntegrationTests+Assertions.swift in Sources */,
-				74E1E5F62982ADE600D2F52E /* FeedViewControllerTests+LoaderSpy.swift in Sources */,
+				74E1E5F62982ADE600D2F52E /* FeedUIIntegrationTests+LoaderSpy.swift in Sources */,
 				74E1E5FF2982B14000D2F52E /* UIControl+Extensions.swift in Sources */,
 				74E1E6062982BFF500D2F52E /* HTTPClientStub.swift in Sources */,
 				74E1E582298293D700D2F52E /* SceneDelegateTests.swift in Sources */,

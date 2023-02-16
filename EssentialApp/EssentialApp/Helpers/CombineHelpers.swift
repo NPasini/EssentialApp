@@ -9,6 +9,34 @@ import UIKit
 import Combine
 import EssentialFeed
 
+public extension Paginated {
+    
+    init(items: [Item], loadMorePublisher: (() -> AnyPublisher<Self, Error>)?) {
+        self.init(items: items, loadMore: loadMorePublisher.map { publisher in
+            return { completion in
+                // Usiamo Subscribers.Sink in modo tale che sia Combine a gestire il ciclo di vita della sottoscrizione e non dobbiamo gestire nessun Cancellable
+                publisher().subscribe(Subscribers.Sink(receiveCompletion: { result in
+                    if case let .failure(error) = result {
+                        completion(.failure(error))
+                    }
+                }, receiveValue: { result in
+                    completion(.success(result))
+                }))
+            }
+        })
+    }
+    
+    var loadMorePublisher: (() -> AnyPublisher<Self, Error>)? {
+        guard let loadMore = loadMore else { return nil }
+        
+        return {
+            Deferred {
+                Future(loadMore)
+            }.eraseToAnyPublisher()
+        }
+    }
+}
+
 public extension HTTPClient {
     
     typealias Publisher = AnyPublisher<(Data, HTTPURLResponse), Error>
@@ -58,8 +86,12 @@ public extension FeedImageDataLoader {
     }
 }
 
-extension Publisher where Output == [FeedImage] {
-    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> {
+extension Publisher {
+    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> where Output == [FeedImage] {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+
+    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> where Output == Paginated<FeedImage> {
         handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
     }
 }
@@ -75,6 +107,10 @@ extension Publisher where Output == Data {
 private extension FeedCache {
     func saveIgnoringResult(_ feed: [FeedImage]) {
         save(feed) { _ in }
+    }
+    
+    func saveIgnoringResult(_ page: Paginated<FeedImage>) {
+        saveIgnoringResult(page.items)
     }
 }
 
@@ -92,7 +128,7 @@ extension Publisher {
 
 extension Publisher {
     func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
-//        receive(on: DispatchQueue.main).eraseToAnyPublisher() Dispatcha asincronamente sulla main queue senz guardare se siamo già su quella queue e quindi, in caso, eseguire istantaneamente
+        //        receive(on: DispatchQueue.main).eraseToAnyPublisher() Dispatcha asincronamente sulla main queue senz guardare se siamo già su quella queue e quindi, in caso, eseguire istantaneamente
         receive(on: DispatchQueue.immediateWhenOnMainQueueScheduler).eraseToAnyPublisher()
     }
 }
@@ -108,7 +144,7 @@ extension DispatchQueue {
         typealias SchedulerOptions = DispatchQueue.SchedulerOptions
         
         static let shared = Self()
-
+        
         private static let value = UInt8.max
         private static let key = DispatchSpecificKey<UInt8>()
         

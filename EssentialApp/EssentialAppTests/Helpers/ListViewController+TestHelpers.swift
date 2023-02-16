@@ -49,6 +49,15 @@ extension ListViewController {
 extension ListViewController {
     
     var feedImagesSection: Int { 0 }
+    var feedLoadMoreSection: Int { 1 }
+    
+    var canLoadMoreFeed: Bool {
+        loadMoreFeedCell() != nil
+    }
+    
+    var isShowingLoadMoreIndicator: Bool {
+        loadMoreFeedCell()?.isLoading == true
+    }
     
     var numberOfRenderedFeedImageViews: Int {
         numberOfRows(in: feedImagesSection)
@@ -107,6 +116,25 @@ extension ListViewController {
         
         return view
     }
+    
+    func simulateLoadMoreFeedAction() {
+        // Loading when the cell becomes visible
+        guard let view = loadMoreFeedCell() else { return }
+        
+        let dl = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        dl?.tableView?(tableView, willDisplay: view, forRowAt: index)
+    }
+    
+    func simulateTapOnLoadMoreFeedError() {
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        delegate?.tableView?(tableView, didSelectRowAt: index)
+    }
+    
+    private func loadMoreFeedCell() -> LoadMoreCell? {
+        cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
+    }
 }
 
 extension ListViewController {
@@ -115,6 +143,10 @@ extension ListViewController {
     
     var numberOfRenderedComments: Int {
         numberOfRows(in: imageCommentsSection)
+    }
+    
+    var loadMoreFeedErrorMessage: String? {
+        loadMoreFeedCell()?.message
     }
     
     func commentMessage(at row: Int) -> String? {
