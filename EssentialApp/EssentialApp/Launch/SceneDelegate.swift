@@ -5,6 +5,7 @@
 //  Created by Nicolò Pasini on 09/08/22.
 //
 
+import os
 import UIKit
 import Combine
 import CoreData
@@ -13,6 +14,8 @@ import EssentialFeed
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    
+    private lazy var logger = Logger(subsystem: "com.essentialApp", category: "main")
     
     private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
     
@@ -29,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
         } catch {
             assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            logger.fault("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
             return NullStore()
         }
     }()
