@@ -5,6 +5,7 @@
 //  Created by nicolo.pasini on 02/02/23.
 //
 
+import os
 import UIKit
 import Combine
 import EssentialFeed
@@ -179,5 +180,36 @@ extension DispatchQueue {
         func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> Cancellable {
             DispatchQueue.main.schedule(after: date, interval: interval, tolerance: tolerance, options: options, action)
         }
+    }
+}
+
+extension Publisher {
+    
+    func logError(url: URL, logger: Logger) -> AnyPublisher<Output, Failure> {
+        handleEvents(receiveCompletion: { result in
+            if case let .failure(error) = result {
+                logger.trace("Failed to load url \(url) with error \(error.localizedDescription)")
+            }
+        })
+        .eraseToAnyPublisher()
+    }
+    
+    func logElapsedtime(url: URL, logger: Logger) -> AnyPublisher<Output, Failure> {
+        var startTime = CACurrentMediaTime()
+        
+        return handleEvents(
+            receiveSubscription: { _ in
+                logger.trace("Started loading url \(url)")
+                startTime = CACurrentMediaTime()
+            },
+            receiveCompletion: { result in
+                if case let .failure(error) = result {
+                    logger.trace("Failed to load url \(url) with error \(error.localizedDescription)")
+                }
+                
+                let elapsedTime = CACurrentMediaTime() - startTime
+                logger.trace("Finished loading URL: \(url) in \(elapsedTime) seconds")
+            }
+        ).eraseToAnyPublisher()
     }
 }

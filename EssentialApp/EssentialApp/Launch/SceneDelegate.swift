@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
     
     private lazy var httpClient: HTTPClient = {
-        HTTPClientProfilingDecorator(decoratee: URLSessionHTTPClient(session: URLSession(configuration: .ephemeral)), logger: logger)
+        URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
     
     private lazy var store: FeedStore & FeedImageDataStore = {
@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
         )
     }()
-        
+    
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
@@ -93,10 +93,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { (newItems, cachedItems) in
                 (cachedItems + newItems, newItems.last)
             }.map(makePage)
-//            .delay(for: 2, scheduler: DispatchQueue.main)
-//            .flatMap { _ in
-//                Fail(error: NSError())
-//            }
+        //            .delay(for: 2, scheduler: DispatchQueue.main)
+        //            .flatMap { _ in
+        //                Fail(error: NSError())
+        //            }
             .caching(to: localFeedLoader)
             .eraseToAnyPublisher()
     }
@@ -125,9 +125,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return localImageLoader
             .loadImageDataPublisher(from: url)
-            .fallback(to: { [httpClient] in
+            .fallback(to: { [logger, httpClient] in
                 httpClient
                     .getPublisher(url: url)
+                    .logError(url: url, logger: logger)
+                    .logElapsedtime(url: url, logger: logger)
                     .tryMap(FeedImageDataMapper.map)
                     .caching(to: localImageLoader, using: url)
             })
