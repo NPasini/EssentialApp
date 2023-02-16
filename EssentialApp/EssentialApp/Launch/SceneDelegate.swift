@@ -125,6 +125,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return localImageLoader
             .loadImageDataPublisher(from: url)
+            .logCacheMisses(url: url, logger: logger)
             .fallback(to: { [logger, httpClient] in
                 httpClient
                     .getPublisher(url: url)

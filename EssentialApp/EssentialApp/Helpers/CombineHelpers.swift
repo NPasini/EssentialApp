@@ -194,6 +194,16 @@ extension Publisher {
         .eraseToAnyPublisher()
     }
     
+    func logCacheMisses(url: URL, logger: Logger) -> AnyPublisher<Output, Failure> {
+        handleEvents(receiveCompletion: { result in
+            if case .failure = result {
+                logger.trace("Cache miss for url: \(url)")
+            }
+        })
+        .eraseToAnyPublisher()
+        
+    }
+    
     func logElapsedtime(url: URL, logger: Logger) -> AnyPublisher<Output, Failure> {
         var startTime = CACurrentMediaTime()
         
