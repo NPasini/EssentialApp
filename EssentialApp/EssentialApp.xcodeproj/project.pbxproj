@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7432B9C9299E96EC002B6D11 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432B9C8299E96EC002B6D11 /* NullStore.swift */; };
 		7472DE01298BC7FC000A14E7 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7472DE00298BC7FC000A14E7 /* CombineHelpers.swift */; };
 		748FAFEE299635F200F36EA4 /* CommentsUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748FAFED299635F200F36EA4 /* CommentsUIIntegrationTests.swift */; };
 		748FAFF02996370D00F36EA4 /* CommentsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748FAFEF2996370C00F36EA4 /* CommentsUIComposer.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7432B9C8299E96EC002B6D11 /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		7472DE00298BC7FC000A14E7 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		748FAFED299635F200F36EA4 /* CommentsUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsUIIntegrationTests.swift; sourceTree = "<group>"; };
 		748FAFEF2996370C00F36EA4 /* CommentsUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsUIComposer.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				7472DE00298BC7FC000A14E7 /* CombineHelpers.swift */,
+				7432B9C8299E96EC002B6D11 /* NullStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			files = (
 				74E1E5D12982A40600D2F52E /* FeedUIComposer.swift in Sources */,
 				A8AC00C228A297B9005E84BE /* AppDelegate.swift in Sources */,
+				7432B9C9299E96EC002B6D11 /* NullStore.swift in Sources */,
 				74E1E5D32982A40600D2F52E /* FeedViewAdapter.swift in Sources */,
 				748FAFF22996443A00F36EA4 /* CommentsViewAdapter.swift in Sources */,
 				74E1E5D22982A40600D2F52E /* LoadResourcePresentationAdapter.swift in Sources */,
