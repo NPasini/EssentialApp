@@ -22,6 +22,10 @@ extension ManagedFeedImage {
     var local: LocalFeedImage {
         LocalFeedImage(id: id, url: url, location: location, description: imageDescription)
     }
+    
+    static func data(with url: URL, in context: NSManagedObjectContext) throws -> Data? {
+        try first(with: url, in: context)?.data
+    }
 
     static func first(with url: URL, in context: NSManagedObjectContext) throws -> ManagedFeedImage? {
         let request = NSFetchRequest<ManagedFeedImage>(entityName: entity().name!)
