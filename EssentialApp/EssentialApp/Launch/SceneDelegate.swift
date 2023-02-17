@@ -5,6 +5,7 @@
 //  Created by Nicolò Pasini on 09/08/22.
 //
 
+import os
 import UIKit
 import Combine
 import CoreData
@@ -14,6 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
+    private lazy var logger = Logger(subsystem: "com.essentialApp", category: "main")
+    
     private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
     
     private lazy var httpClient: HTTPClient = {
@@ -21,11 +24,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }()
     
     private lazy var store: FeedStore & FeedImageDataStore = {
-        try! CoreDataFeedStore(
-            storeURL: NSPersistentContainer
-                .defaultDirectoryURL()
-                .appendingPathComponent("feed-store.sqlite")
-        )
+        do {
+            return try CoreDataFeedStore(
+                storeURL: NSPersistentContainer
+                    .defaultDirectoryURL()
+                    .appendingPathComponent("feed-store.sqlite")
+            )
+        } catch {
+            assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            logger.fault("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            return NullStore()
+        }
     }()
     
     private lazy var navigationController: UINavigationController = {
@@ -37,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
         )
     }()
-        
+    
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
@@ -84,10 +93,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { (newItems, cachedItems) in
                 (cachedItems + newItems, newItems.last)
             }.map(makePage)
-//            .delay(for: 2, scheduler: DispatchQueue.main)
-//            .flatMap { _ in
-//                Fail(error: NSError())
-//            }
+        //            .delay(for: 2, scheduler: DispatchQueue.main)
+        //            .flatMap { _ in
+        //                Fail(error: NSError())
+        //            }
             .caching(to: localFeedLoader)
             .eraseToAnyPublisher()
     }
@@ -116,9 +125,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return localImageLoader
             .loadImageDataPublisher(from: url)
-            .fallback(to: { [httpClient] in
+            .logCacheMisses(url: url, logger: logger)
+            .fallback(to: { [logger, httpClient] in
                 httpClient
                     .getPublisher(url: url)
+                    .logError(url: url, logger: logger)
+                    .logElapsedtime(url: url, logger: logger)
                     .tryMap(FeedImageDataMapper.map)
                     .caching(to: localImageLoader, using: url)
             })

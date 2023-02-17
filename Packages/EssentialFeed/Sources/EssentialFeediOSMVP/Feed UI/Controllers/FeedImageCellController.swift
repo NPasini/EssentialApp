@@ -39,6 +39,8 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cell = tableView.dequeueReusableCell()
         cell?.feedImageView.image = nil
+        cell?.feedImageRetryButton.isHidden = true
+        cell?.feedImageContainer.isShimmering = true
         cell?.locationLabel.text = viewModel.location
         cell?.descriptionLabel.text = viewModel.description
         cell?.locationContainer.isHidden = !viewModel.hasLocation
