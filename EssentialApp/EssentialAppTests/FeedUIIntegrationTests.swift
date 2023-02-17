@@ -82,6 +82,19 @@ class FeedUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadMoreCallCount, 3, "Expected no request after loading all pages")
     }
     
+    func test_scrollLoadMoreView_loadsMore() {
+        let (sut, loader) = makeSUT()
+        sut.loadTestDoubleTableView(AlwaysDraggingTableView())
+        loader.completeFeedLoading()
+            
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 1)
+            
+        loader.completeLoadMoreWithError()
+        sut.simulateScrollOnLoadMoreView()
+        XCTAssertEqual(loader.loadMoreCallCount, 2)
+    }
+    
     func test_loadingFeedIndicator_isVisibleWhileLoadingFeed() {
         let (sut, loader) = makeSUT()
         
@@ -565,9 +578,16 @@ class FeedUIIntegrationTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(selection: @escaping (FeedImage) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
+    private func makeSUT(tableViewTestDouble: UITableView? = nil, selection: @escaping (FeedImage) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher, imageLoader: loader.loadImageDataPublisher, selection: selection)
+        
+        if let tableView = tableViewTestDouble {
+            sut.tableView = tableView
+            tableView.delegate = sut
+            tableView.prefetchDataSource = sut
+        }
+        
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
@@ -579,5 +599,9 @@ class FeedUIIntegrationTests: XCTestCase {
     
     private func anyImageData() -> Data {
         return UIImage.make(withColor: .red).pngData()!
+    }
+    
+    private class AlwaysDraggingTableView: UITableView {
+        override var isDragging: Bool { true }
     }
 }
