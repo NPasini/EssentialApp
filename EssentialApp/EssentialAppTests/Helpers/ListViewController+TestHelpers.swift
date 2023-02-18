@@ -117,23 +117,22 @@ extension ListViewController {
         return view
     }
     
-    func simulateLoadMoreFeedAction() {
-        // Loading when the cell becomes visible
-        guard let view = loadMoreFeedCell() else { return }
-        
-        let dl = tableView.delegate
-        let index = IndexPath(row: 0, section: feedLoadMoreSection)
-        dl?.tableView?(tableView, willDisplay: view, forRowAt: index)
-    }
-    
     func simulateTapOnLoadMoreFeedError() {
         let delegate = tableView.delegate
         let index = IndexPath(row: 0, section: feedLoadMoreSection)
         delegate?.tableView?(tableView, didSelectRowAt: index)
     }
     
-    func simulateScrollOnLoadMoreView() {
-        let delegate = tableView.delegate
+    func simulateLoadMoreFeedAction(tableView: UITableView? = nil) {
+        // Loading when the cell becomes visible
+        guard let view = loadMoreFeedCell() else { return }
+        
+        let dl = self.tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        dl?.tableView?(tableView ?? self.tableView, willDisplay: view, forRowAt: index)
+    }
+
+    func simulateScrollOnLoadMoreView(tableView: UITableView) {
         tableView.setContentOffset(CGPoint(x: 0, y: 100), animated: false)
     }
     
