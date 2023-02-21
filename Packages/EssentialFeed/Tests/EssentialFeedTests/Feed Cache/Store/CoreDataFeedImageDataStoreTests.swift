@@ -51,7 +51,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
     
     // - MARK: Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CoreDataFeedStore {
         let sut = try! CoreDataFeedStore(storeURL: inMemoryStoreURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
@@ -87,18 +87,9 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
     }
     
     private func insert(_ data: Data, for url: URL, into sut: CoreDataFeedStore, file: StaticString = #filePath, line: UInt = #line) {
-        let exp = expectation(description: "Wait for cache insertion")
-        let image = localImage(url: url)
-        sut.insert([image], timestamp: Date()) { result in
-            if case let .failure(error) = result {
-                XCTFail("Failed to save \(image) with error \(error)", file: file, line: line)
-            }
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-        
         do {
+            let image = localImage(url: url)
+            try sut.insert([image], timestamp: Date())
             try sut.insert(data, for: url)
         } catch {
             XCTFail("Failed to insert \(data) with error \(error)", file: file, line: line)

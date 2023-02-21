@@ -161,7 +161,7 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
         }
     }
 
-    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line) {
+    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line) {
         do {
             try loader.validateCache()
         } catch {
