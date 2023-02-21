@@ -136,12 +136,6 @@ extension ListViewController {
         tableView.setContentOffset(CGPoint(x: 0, y: 100), animated: false)
     }
     
-    func loadTestDoubleTableView(_ testTableView: UITableView) {
-        testTableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        tableView = testTableView
-        viewDidLoad()
-    }
-    
     private func loadMoreFeedCell() -> LoadMoreCell? {
         cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
     }
