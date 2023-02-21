@@ -153,12 +153,6 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         XCTAssertEqual(existingObjects, [], "found orphaned objects in Core Data")
     }
 
-    func test_storeSideEffects_runSerially() {
-        let sut = makeSUT()
-
-        assertThatSideEffectsRunSerially(on: sut)
-    }
-
     func test_imageEntity_properties() throws {
         let entity = try XCTUnwrap(
             CoreDataFeedStore.model?.entitiesByName["ManagedFeedImage"]
@@ -172,7 +166,7 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
 
     // - MARK: Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> FeedStore {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FeedStore {
         let sut = try! CoreDataFeedStore(storeURL: inMemoryStoreURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
